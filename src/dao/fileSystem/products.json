@@ -1,0 +1,83 @@
+[
+  {
+    "id": 1,
+    "title": "Laptop HP",
+    "description": "Laptop HP de última generación",
+    "code": "TEC001",
+    "price": 15000,
+    "status": true,
+    "stock": 10,
+    "category": "Laptops",
+    "thumbnails": [
+      "51d3d87e-b9d5-4cbe-8b99-1cee1050dd1f.jpeg"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Teléfono Samsung",
+    "description": "Teléfono Samsung Galaxy S21",
+    "code": "TEC002",
+    "price": 10000,
+    "status": true,
+    "stock": 15,
+    "category": "Smartphones",
+    "thumbnails": []
+  },
+  {
+    "id": 3,
+    "title": "Tablet Lenovo",
+    "description": "Tablet Lenovo de 10 pulgadas",
+    "code": "TEC003",
+    "price": 6000,
+    "status": false,
+    "stock": 20,
+    "category": "Tablets",
+    "thumbnails": []
+  },
+  {
+    "id": 4,
+    "title": "Laptop Dell",
+    "description": "Laptop Dell de alto rendimiento",
+    "code": "TEC004",
+    "price": 18000,
+    "status": true,
+    "stock": 8,
+    "category": "Laptops",
+    "thumbnails": []
+  },
+  {
+    "id": 5,
+    "title": "Iphone 13",
+    "description": "Smartphone Apple iPhone 13",
+    "code": "TEC005",
+    "price": 22000,
+    "status": true,
+    "stock": 12,
+    "category": "Smartphones",
+    "thumbnails": [
+      "e12074ed-f17a-4eef-9070-d47299ee4ffb.jpg"
+    ]
+  },
+  {
+    "id": 6,
+    "title": "MacBook Air",
+    "description": "Laptop Apple MacBook Air",
+    "code": "TEC006",
+    "price": 25000,
+    "status": true,
+    "stock": 5,
+    "category": "Laptops",
+    "thumbnails": []
+  },
+  {
+    "id": 7,
+    "title": "iPad Pro",
+    "description": "iPad Pro de 11 pulgadas",
+    "code": "TEC007",
+    "price": 15000,
+    "status": true,
+    "stock": 10,
+    "category": "Tablets",
+    "thumbnails": []
+  }
+]
