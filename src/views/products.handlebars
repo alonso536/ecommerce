@@ -1,0 +1,39 @@
+<main class="container">
+    <h1 class="text-center my-3">{{ title }}</h1>
+    <div class="row">
+        {{#each products.payload}}
+        <div class="col-md-4 col-sm-6 col-12">
+            <div class="card my-3">
+                <div class="card-body">
+                    <h5 class="card-title">{{this.title}}</h5>
+                    <p class="card-text">{{this.description}}</p>
+                    <p class="card-text">$ {{this.price}}</p>
+                    <p class="card-text">{{this.category}}</p>
+                    <button class="btn btn-primary bg-gradient">Agregar al carro</button>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+        <nav>
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    {{#if products.prevLink}}
+                        <a class="page-link" href="{{products.prevLink}}">&laquo;</a>
+                    {{else}}
+                        <span class="page-link">&laquo;</span>
+                    {{/if}}
+                </li>
+                <li class="page-item">
+                    <span class="page-link">{{products.page}}</span>
+                </li>
+                <li class="page-item">
+                    {{#if products.nextLink}}
+                        <a class="page-link" href="{{products.nextLink}}">&raquo;</a>
+                    {{else}}
+                        <span class="page-link">&raquo;</span>
+                    {{/if}}
+                </li>
+            </ul>
+        </nav>
+    </div>
+</main>

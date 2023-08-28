@@ -9,8 +9,7 @@ export const connect = async () => {
         });
 
         console.log("Database online");
-
-    } catch(error) {
+    } catch (error) {
         console.log(error);
     }
-}
+};
