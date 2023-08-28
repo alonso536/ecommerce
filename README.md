@@ -19,3 +19,4 @@
 
 -   `localhost:8080/products`
 -   `localhost:8080/carts/:idcart`
+-   `localhost:8080/api/carts`, ingrese a esta ruta para ver los ids de los carritos

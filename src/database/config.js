@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 export const connect = async () => {
-    const urlMongo = "mongodb://localhost:27017/ecommerce";
+    const urlMongo = "";
     try {
         await mongoose.connect(urlMongo, {
             useNewUrlParser: true,
