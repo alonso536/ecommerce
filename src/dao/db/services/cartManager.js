@@ -36,7 +36,7 @@ class CartManager {
 
     async getCarts() {
         try {
-            return await Cart.find().populate("items");
+            return await Cart.find().select("uid");
         } catch (err) {
             throw new Error("Error al buscar los carritos");
         }

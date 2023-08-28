@@ -11,6 +11,14 @@ import CartManager from "../dao/db/services/cartManager.js";
 const router = Router();
 const cartManager = new CartManager();
 
+router.get("/", async (req, res) => {
+    const carts = await cartManager.getCarts();
+
+    return res.status(200).json({
+        carts,
+    });
+});
+
 router.post("/", async (req, res) => {
     try {
         await cartManager.addCart();
