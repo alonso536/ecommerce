@@ -1,0 +1,45 @@
+<header>
+    <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="/products">Ecommerce App</a>
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div
+                class="collapse navbar-collapse justify-content-between"
+                id="navbarNav"
+            >
+                <div>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/products">Productos</a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a
+                                class="nav-link"
+                                href="/profile"
+                            >{{user.firstname}}
+                                {{user.lastname}}</a>
+                        </li>
+                        <li class="nav-item">
+                            <button id="logout" class="nav-link">Cerrar sesión</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+<script src="js/logout.js"></script>

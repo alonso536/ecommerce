@@ -1,12 +1,14 @@
 import express from "express";
 import cors from "cors";
 import handlebars from "express-handlebars";
+import session from "express-session";
+import MongoStore from "connect-mongo";
 
 import { createServer } from "http";
 import { Server as SocketServer } from "socket.io";
 import { socketController } from "../sockets/controller.js";
 
-import { cartRouter, productRouter, viewRouter } from "../routers/index.js";
+import { cartRouter, productRouter, sessionRouter, viewRouter } from "../routers/index.js";
 import { connect } from "../database/config.js";
 import { dirname } from "../path.js";
 
@@ -20,6 +22,7 @@ class Server {
         this.paths = {
             carts: "/api/carts",
             products: "/api/products",
+            sessions: "/api/sessions",
             views: "/"
         }
 
@@ -32,6 +35,7 @@ class Server {
     routes() {
         this.app.use(this.paths.carts, cartRouter);
         this.app.use(this.paths.products, productRouter);
+        this.app.use(this.paths.sessions, sessionRouter);
         this.app.use(this.paths.views, viewRouter);
     }
 
@@ -48,6 +52,20 @@ class Server {
 
         this.app.set("views", `${dirname}/views`);
         this.app.set("view engine", "handlebars");
+
+        this.app.use(session({
+            store: MongoStore.create({
+                mongoUrl: process.env.MONGODB_URL,
+                mongoOptions: {
+                    useNewUrlParser: true,
+                    useUnifiedTopology: true
+                },
+                ttl: 60 * 60
+            }),
+            secret: process.env.SESSION_SECRET_KEY,
+            resave: false,
+            saveUninitialized: false
+        }));
     }
 
     sockets() {

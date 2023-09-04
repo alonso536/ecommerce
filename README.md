@@ -1,22 +1,20 @@
-# Ecommerce - Segunda Pre Entrega
+# Ecommerce - Implementación de login
 
 ### Alonso Díaz
 
 -   Ejecute `npm install` para inicializar los modulos de node
 -   Ejecute `npm start` para ejecutar la aplicación
 
+### Rutas de la aplicación
+
+-   `localhost:8080/login`, pide las credenciales al usuario, si hay una sesión activa redirige a `/profile`
+-   `localhost:8080/register`, muestra un formulario para registrar usuarios en la base de datos, si hay una sesión activa redirige a `/profile`
+-   `localhost:8080/products`, muestra los productos con paginación, si no hay una sesión activa redirige a `/login`
+-   `localhost:8080/profile`, muestra los datos del usuario, excepto la contraseña, si no hay una sesión activa redirige a `/login`
+-   `localhost:8080/carts/:idcart` muestra los productos agregados al carrito (No ingresar a esta ruta)
+-   `localhost:8080/chat`, pagina del chat con websockets (No ingresar a esta ruta)
+
 ### Rutas para subir las imagenes
 
 -   Subir imágenes: POST `/api/products/img/:pid`, se puede agregar más de una imagen
 -   Ver imagen: GET `/api/products/img/:pid`, solo muestra la primera imagen
-
-### Rutas para el chat con websocket
-
--   `localhost:8080/login`, pide un nombre de usuario para acceder al chat
--   `localhost:8080/chat`, escriba un mensaje y aparecerá
-
-### Rutas para los productos y el carrito
-
--   `localhost:8080/products`
--   `localhost:8080/carts/:idcart`
--   `localhost:8080/api/carts`, ingrese a esta ruta para ver los ids de los carritos
