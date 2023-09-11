@@ -2,7 +2,6 @@ import { Router } from "express";
 import ProductManager from "../dao/db/services/productManager.js";
 import CartManager from "../dao/db/services/cartManager.js";
 import { auth } from "../middlewares/auth-session.js";
-import { validateFields } from "../middlewares/validateFields.js";
 import { noAuth } from "../middlewares/no-auth.js";
 
 const router = Router();

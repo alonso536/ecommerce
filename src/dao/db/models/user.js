@@ -6,8 +6,7 @@ const UserSchema = Schema({
         required: true
     },
     lastname: {
-        type: String,
-        required: true
+        type: String
     },
     email: {
         type: String,
@@ -21,7 +20,10 @@ const UserSchema = Schema({
         type: Number,
         required: true
     },
-
+    github: {
+        type: Boolean,
+        default: false
+    }
 }, 
 {
     timestamps: true

@@ -25,5 +25,8 @@ form.addEventListener("submit", e => {
         } else {
             window.location = "/products";
         }
+    })
+    .catch(err => {
+        error.innerText = "Datos incorrectos";
     });
 });

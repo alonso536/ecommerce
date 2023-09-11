@@ -2,7 +2,6 @@ const form = document.querySelector("form");
 const errorTexts = [...document.querySelectorAll(".error-text")];
 
 const showErrors = ({ srcElement }, errors) => {
-    console.log(srcElement.length);
     errors.forEach(({ path, msg }) => {
         for(let i = 0; i < srcElement.length - 1; i++) {
             if(path == srcElement[i].name) {
@@ -36,5 +35,8 @@ form.addEventListener("submit", e => {
         else {
             window.location = "/login";
         }
+    })
+    .catch(err => {
+        errorTexts[2].innerText = "El email insertado ya está en uso"
     });
 });

@@ -1,4 +1,4 @@
-# Ecommerce - Implementación de login
+# Ecommerce - Implementación de login con passport
 
 ### Alonso Díaz
 

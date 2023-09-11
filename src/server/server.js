@@ -4,12 +4,15 @@ import handlebars from "express-handlebars";
 import session from "express-session";
 import MongoStore from "connect-mongo";
 
+import passport from "passport";
+import initializePassport from "../config/passport.js";
+
 import { createServer } from "http";
 import { Server as SocketServer } from "socket.io";
 import { socketController } from "../sockets/controller.js";
 
 import { cartRouter, productRouter, sessionRouter, viewRouter } from "../routers/index.js";
-import { connect } from "../database/config.js";
+import { connect } from "../config/database.js";
 import { dirname } from "../path.js";
 
 class Server {
@@ -66,6 +69,10 @@ class Server {
             resave: false,
             saveUninitialized: false
         }));
+
+        initializePassport();
+        this.app.use(passport.initialize());
+        this.app.use(passport.session());
     }
 
     sockets() {

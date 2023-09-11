@@ -1,9 +1,8 @@
 import { Router } from "express";
 import { check } from "express-validator";
-import bcryptjs from "bcryptjs";
 
-import User from "../dao/db/models/user.js";
 import { validateFields } from "../middlewares/validateFields.js";
+import passport from "passport";
 
 const router = Router();
 
@@ -16,68 +15,34 @@ router.post("/register", [
     check("age", "La edad es obligatoria").notEmpty(),
     check("age", "La edad debe ser un número").isNumeric(),
     validateFields,
+    passport.authenticate("register")
 ] ,async (req, res) => {
-    const { firstname, lastname, email, password, age } = req.body;
 
-    const user = new User({
-        firstname,
-        lastname,
-        email,
-        password: bcryptjs.hashSync(password, bcryptjs.genSaltSync()),
-        age
-    });
-
-    await user.save();
     return res.status(201).json({
-        user
+        msg: "Usuario creado"
     });
-
 });
 
-router.post("/login", async (req, res) => {
-    const { email, password } = req.body;
-
-    if(email == "adminCoder@coder.com" && password == "adminCod3r123") {
-        req.session.user = {
-            firstname: "Admin",
-            lastname: "Admin",
-            email: "adminCoder@coder.com",
-            age: "desconocida",
-            role: "ADMIN_ROLE"
-        }
-
-        return res.status(200).json({
-            id: "admin"
-        });
-    }
-
+router.post("/login", passport.authenticate("login"), async (req, res) => {
     try {
-        const user = await User.findOne({ email });
-        if(!user) {
+        if(!req.user) {
             return res.status(400).json({
                 msg: "Datos incorrectos"
             });
-        }
-
-        if(!bcryptjs.compareSync(password, user.password)) {
-            return res.status(400).json({
-                msg: "Datos incorrectos"
-            });
-        }
-
+        }    
+        const { _id, firstname, lastname, email, age } = req.user;
+    
         req.session.user = {
-            id: user.id,
-            firstname: user.firstname,
-            lastname: user.lastname,
-            email: user.email,
-            age: user.age,
-            role: "USER_ROLE"
+            id: _id,
+            name: `${firstname} ${lastname}`,
+            email,
+            age,
+            role: "ROLE_USER"
         }
-
+    
         return res.status(200).json({
-            id: user.id
+            id: _id
         });
-
     } catch(error) {
         return res.status(500).json({
             msg: "Ha ocurrido un error. Hable con el administrador"
@@ -98,6 +63,21 @@ router.post("/logout", async (req, res) => {
             msg: "Logout OK"
         });
     });
+});
+
+router.get("/github", passport.authenticate("github", { scope: ["user:email"]}), async (req, res) => {});
+
+router.get("/githubcallback", passport.authenticate("github", { failureRedirect: "/login" }), async (req, res) => {
+    const { _id, firstname, lastname, email, age } = req.user;
+
+    req.session.user = {
+        id: _id,
+        name: `${firstname} ${lastname}`,
+        email,
+        age,
+        role: "ROLE_USER"
+    };
+    res.redirect("/products");
 });
 
 export default router;
