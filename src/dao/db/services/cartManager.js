@@ -4,7 +4,7 @@ import Product from "../models/product.js";
 class CartManager {
     async addCart() {
         try {
-            await Cart.create({});
+            return await Cart.create({});
         } catch (err) {
             throw new Error("Error al insertar el carrito");
         }

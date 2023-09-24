@@ -20,6 +20,14 @@ const UserSchema = Schema({
         type: Number,
         required: true
     },
+    role: {
+        type: String,
+        default: "ROLE_USER"
+    },
+    cart: {
+        type: Schema.Types.ObjectId,
+        ref: "Cart"
+    },
     github: {
         type: Boolean,
         default: false

@@ -1,8 +1,16 @@
 import passport from "passport";
 import GitHubStrategy from "passport-github2";
 import LocalStrategy from "passport-local";
+import jwt from "passport-jwt";
+
 import User from "../dao/db/models/user.js";
 import bcryptjs from "bcryptjs";
+import CartManager from "../dao/db/services/cartManager.js";
+
+const service = new CartManager();
+
+const JWTStrategy = jwt.Strategy;
+const ExtractJWT = jwt.ExtractJwt;
 
 const initializePassport = () => {
     passport.use("register", new LocalStrategy({
@@ -15,10 +23,13 @@ const initializePassport = () => {
             const user = await User.findOne({ email: username });
 
             if(!user) {
+                const cart = await service.addCart();
+    
                 const data = {
                     firstname,
                     lastname,
                     email,
+                    cart: cart._id,
                     password: bcryptjs.hashSync(password, bcryptjs.genSaltSync()),
                     age
                 };
@@ -54,6 +65,17 @@ const initializePassport = () => {
         }
     }));
 
+    passport.use("jwt", new JWTStrategy({
+        jwtFromRequest:ExtractJWT.fromExtractors([cookieExtractor]),
+        secretOrKey: process.env.JWT_SECRET_KEY,
+    }, async (payload, done) => {
+        try {
+            return done(null, payload);
+        } catch(err) {
+            return done(err);
+        }
+    }));
+
     passport.use("github", new GitHubStrategy({
         clientID: process.env.GITHUB_CLIENT_ID,
         clientSecret: process.env.GITHUB_SECRET_KEY,
@@ -62,12 +84,15 @@ const initializePassport = () => {
         try {
             const user = await User.findOne({ email: profile._json.email });
             if(!user) {
+                const cart = await service.addCart();
+
                 const data = {
                     firstname: profile._json.name,
                     lastname: '',
                     email: profile._json.email,
                     age: 25,
                     password: 'nothing',
+                    cart: cart._id,
                     github: true
                 }
 
@@ -90,6 +115,15 @@ const initializePassport = () => {
         const user = await User.findById(id);
         done(null, user);
     });
+}
+
+const cookieExtractor = (req) => {
+    let token = null;
+    if(req && req.cookies) {
+        token = req.cookies["token"];
+    }
+
+    return token;
 }
 
 export default initializePassport;

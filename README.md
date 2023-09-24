@@ -1,4 +1,4 @@
-# Ecommerce - Implementación de login con passport
+# Ecommerce - Implementación de login con jwt y passport
 
 ### Alonso Díaz
 
@@ -11,7 +11,7 @@
 -   `localhost:8080/register`, muestra un formulario para registrar usuarios en la base de datos, si hay una sesión activa redirige a `/profile`
 -   `localhost:8080/products`, muestra los productos con paginación, si no hay una sesión activa redirige a `/login`
 -   `localhost:8080/profile`, muestra los datos del usuario, excepto la contraseña, si no hay una sesión activa redirige a `/login`
--   `localhost:8080/carts/:idcart` muestra los productos agregados al carrito (No ingresar a esta ruta)
+-   `localhost:8080/cart` muestra los productos agregados al carrito
 -   `localhost:8080/chat`, pagina del chat con websockets (No ingresar a esta ruta)
 
 ### Rutas para subir las imagenes

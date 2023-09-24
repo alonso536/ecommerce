@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import handlebars from "express-handlebars";
 import session from "express-session";
+import cookieParser from "cookie-parser";
 import MongoStore from "connect-mongo";
 
 import passport from "passport";
@@ -69,6 +70,8 @@ class Server {
             resave: false,
             saveUninitialized: false
         }));
+
+        this.app.use(cookieParser());
 
         initializePassport();
         this.app.use(passport.initialize());

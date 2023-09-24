@@ -3,6 +3,7 @@ import { check } from "express-validator";
 
 import { validateFields } from "../middlewares/validateFields.js";
 import passport from "passport";
+import { generateJWT } from "../helpers/generateJwt.js";
 
 const router = Router();
 
@@ -30,18 +31,13 @@ router.post("/login", passport.authenticate("login"), async (req, res) => {
                 msg: "Datos incorrectos"
             });
         }    
-        const { _id, firstname, lastname, email, age } = req.user;
+        const token = await generateJWT(req.user);
     
-        req.session.user = {
-            id: _id,
-            name: `${firstname} ${lastname}`,
-            email,
-            age,
-            role: "ROLE_USER"
-        }
-    
-        return res.status(200).json({
-            id: _id
+        return res.cookie("token", token, {
+            maxAge: 60 * 60 * 1000,
+            httpOnly: true
+        }).send({
+            token
         });
     } catch(error) {
         return res.status(500).json({
@@ -51,33 +47,30 @@ router.post("/login", passport.authenticate("login"), async (req, res) => {
 });
 
 router.post("/logout", async (req, res) => {
-    req.session.destroy(error => {
-        if(error) {
-            return res.status(500).json({
-                status: "error",
-                msg: "Ha ocurrido un error. Hable con el administrador"
-            });
-        }
-        return res.status(200).json({
-            status: "success",
-            msg: "Logout OK"
-        });
+    res.clearCookie("token").send({
+        status: "success",
+        msg: "Logout OK"
     });
 });
 
 router.get("/github", passport.authenticate("github", { scope: ["user:email"]}), async (req, res) => {});
 
 router.get("/githubcallback", passport.authenticate("github", { failureRedirect: "/login" }), async (req, res) => {
-    const { _id, firstname, lastname, email, age } = req.user;
+    const { _id, firstname, lastname, email, age, role, cart } = req.user;
 
-    req.session.user = {
-        id: _id,
-        name: `${firstname} ${lastname}`,
-        email,
-        age,
-        role: "ROLE_USER"
-    };
-    res.redirect("/products");
+    const token = await generateJWT(req.user);
+    
+    return res.cookie("token", token, {
+        maxAge: 60 * 60 * 1000,
+        httpOnly: true
+    }).redirect("/products");
+});
+
+router.get("/current", passport.authenticate("jwt", { session: false }), (req, res) => {
+    const user = req.user;
+    return res.status(200).json({
+        user
+    });
 });
 
 export default router;

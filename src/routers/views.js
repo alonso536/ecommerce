@@ -1,8 +1,8 @@
 import { Router } from "express";
 import ProductManager from "../dao/db/services/productManager.js";
 import CartManager from "../dao/db/services/cartManager.js";
-import { auth } from "../middlewares/auth-session.js";
 import { noAuth } from "../middlewares/no-auth.js";
+import passport from "passport";
 
 const router = Router();
 
@@ -26,7 +26,7 @@ router.get("/register", [
 })
 
 router.get("/chat", [
-    auth
+    passport.authenticate("jwt", { session: false })
 ], (req, res) => {
     res.render("chat", {
         title: "Sala de chat",
@@ -34,11 +34,12 @@ router.get("/chat", [
 });
 
 router.get("/products", [
-    auth
+    passport.authenticate("jwt", { session: false })
 ], async (req, res) => {
     const { limit = 6, page = 1, sort = null, query = null } = req.query;
     const products = await productManager.getProducts(limit, page, sort, query);
-    const { user } = req.session;
+
+    const user = req.user;
 
     if (page > products.totalPages) {
         res.render("error", {
@@ -55,9 +56,9 @@ router.get("/products", [
 });
 
 router.get("/profile", [
-    auth
-], (req, res) => {
-    const { user } = req.session;
+    passport.authenticate("jwt", { session: false })
+], async (req, res) => {
+    const user = req.user;
 
     res.render("profile", {
         title: "Perfil",
@@ -65,16 +66,16 @@ router.get("/profile", [
     });
 });
 
-router.get("/carts/:cid", [
-    auth
+router.get("/cart", [
+    passport.authenticate("jwt", { session: false })
 ], async (req, res) => {
-    const { cid } = req.params;
-
     try {
-        const cart = await cartManager.getCartById(cid);
+        const user = req.user;
 
+        const cart = await cartManager.getCartById(user.cart);
         res.render("carts", {
             title: "Productos en el carrito",
+            user,
             cart,
         });
     } catch (error) {

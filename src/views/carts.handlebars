@@ -1,8 +1,8 @@
+{{> navbar}}
 <main class="container">
-    <h1 class="text-center my-3">{{ title }}</h1>
     <div class="row">
         {{#if cart.products}}
-            <h3>Productos en el carrito</h3>
+            <h2 class="my-3">{{ title }}</h2>
             <div class="col">
                 <table class="table table-bordered">
                     <thead>
@@ -12,6 +12,7 @@
                             <th>Precio</th>
                             <th>Categoría</th>
                             <th>Cantidad</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -21,14 +22,20 @@
                                 <td>{{this.product.description}}</td>
                                 <td>{{this.product.price}}</td>
                                 <td>{{this.product.category}}</td>
-                                <td>{{this.quantity}}</td>
+                                <td><input id="{{this.product._id}}" type="number" class="form-control" value="{{this.quantity}}"></td>
+                                <td>
+                                    <button data-id="{{this.product._id}}" class="btn btn-success btn-sm bg-gradient updateProduct">Actualizar</button>
+                                    <button data-id="{{this.product._id}}" class="btn btn-danger btn-sm bg-gradient removeProduct">Eliminar</button>
+                                </td>
                             </tr>
                         {{/each}}
                     </tbody>
                 </table>
+                <button data-id="{{cart._id}}" id="clearCart" class="btn btn-danger bg-gradient my-3">Limpiar carrito</button>
             </div>
+            <script src="./js/cart.js"></script>
         {{else}}
-            <h3>No hay productos en el carrito</h3>
+            <h2 class="my-3">No hay productos en el carrito</h2>
         {{/if}}
     </div>
 </main>
