@@ -1,4 +1,4 @@
-# Ecommerce - Implementación de login con jwt y passport
+# Ecommerce - Implementación de arquitectura por capas
 
 ### Alonso Díaz
 

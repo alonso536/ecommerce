@@ -12,7 +12,7 @@ import { createServer } from "http";
 import { Server as SocketServer } from "socket.io";
 import { socketController } from "../sockets/controller.js";
 
-import { cartRouter, productRouter, sessionRouter, viewRouter } from "../routers/index.js";
+import { cartRouter, productRouter, authRouter, viewRouter } from "../routers/index.js";
 import { connect } from "../config/database.js";
 import { dirname } from "../path.js";
 
@@ -24,9 +24,9 @@ class Server {
         this.io = new SocketServer(this.server);
 
         this.paths = {
+            auth: "/api/sessions",
             carts: "/api/carts",
             products: "/api/products",
-            sessions: "/api/sessions",
             views: "/"
         }
 
@@ -39,7 +39,7 @@ class Server {
     routes() {
         this.app.use(this.paths.carts, cartRouter);
         this.app.use(this.paths.products, productRouter);
-        this.app.use(this.paths.sessions, sessionRouter);
+        this.app.use(this.paths.auth, authRouter);
         this.app.use(this.paths.views, viewRouter);
     }
 
