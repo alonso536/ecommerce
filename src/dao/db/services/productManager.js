@@ -1,6 +1,7 @@
 import Product from "../models/product.js";
 import fs from "fs";
 import { dirname } from "../../../path.js";
+import ProductDto from "../dto/product.js";
 
 class ProductManager {
     static endpoint = "http://localhost:8080/products";
@@ -29,19 +30,19 @@ class ProductManager {
         if (query) {
             if (sort) {
                 products = await Product.paginate(
-                    { category: query, status: true },
-                    { limit, page, sort: { price: sort }, lean: true }
+                    { category: query, status: true, stock: { $gt: 0 } },
+                    { limit, page, sort: { price: sort, createdAt: -1}, lean: true }
                 );
             } else {
                 products = await Product.paginate(
-                    { category: query, status: true },
-                    { limit, page, lean: true }
+                    { category: query, status: true, stock: { $gt: 0 } },
+                    { limit, page, sort: { createdAt: -1 }, lean: true }
                 );
             }
         } else {
             products = await Product.paginate(
-                { status: true },
-                { limit, page, lean: true }
+                { status: true, stock: { $gt: 0 } },
+                { limit, page, sort: { createdAt: -1 }, lean: true }
             );
         }
 
@@ -66,7 +67,7 @@ class ProductManager {
                 throw new Error(`No existe un producto con el id ${id}`);
             }
 
-            return product;
+            return new ProductDto(product);
         } catch (err) {
             throw new Error(`Error al buscar el producto`);
         }
@@ -144,7 +145,7 @@ class ProductManager {
         }
 
         if (product.thumbnails.length === 0) {
-            throw new Error("El producto no tiene imagenes");
+            return `${dirname}/public/assets/no-image.jpg`;
         }
 
         const filename = product.thumbnails[0];
@@ -154,7 +155,7 @@ class ProductManager {
                 (t) => t !== filename
             );
             await product.save();
-            throw new Error("La imagen no existe");
+            return `${dirname}/public/assets/no-image.jpg`;
         }
 
         return pathImg;

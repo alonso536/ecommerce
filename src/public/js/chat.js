@@ -1,17 +1,12 @@
-const user = sessionStorage.getItem("user");
-
-if(!user) {
-    window.location = "login";
-}
-
 const form = document.querySelector("form");
 const messages = document.querySelector("#messages");
+const user = document.querySelector("#user").value;
 
 const showMessages = payload => {
     let html = "";
 
     payload.forEach(({ user, body }) => {
-        html += `<p><b>${user} dice: </b>${body}</p>`;
+        html += `<p><b>${user.firstname} ${user.lastname} dice: </b>${body}</p>`;
     });
 
     messages.innerHTML = html;

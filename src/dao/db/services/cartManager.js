@@ -148,6 +148,24 @@ class CartManager {
 
         await cart.save();
     }
+
+    async reduceStock(cart) {
+        cart.products.forEach(async(p) => {
+            const product = await Product.findById(p.product._id);
+            product.stock -= p.quantity;
+
+            await product.save();
+        });
+    }
+
+    calculateTotal(cart) {
+        let total = 0;
+        cart.products.forEach(p => {
+            total += p.quantity * p.product.price;
+        });
+        
+        return total;
+    }
 }
 
 export default CartManager;

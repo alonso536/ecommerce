@@ -17,7 +17,7 @@ const initializePassport = () => {
         passReqToCallback: true,
         usernameField: "email"
     }, async (req, username, password, done) => {
-        const { firstname, lastname, email, age } = req.body;
+        const { firstname, lastname, email, age, role = "ROLE_USER" } = req.body;
 
         try {
             const user = await User.findOne({ email: username });
@@ -29,6 +29,7 @@ const initializePassport = () => {
                     firstname,
                     lastname,
                     email,
+                    role,
                     cart: cart._id,
                     password: bcryptjs.hashSync(password, bcryptjs.genSaltSync()),
                     age

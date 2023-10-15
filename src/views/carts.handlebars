@@ -30,7 +30,38 @@
                             </tr>
                         {{/each}}
                     </tbody>
+                    <tfooter>
+                        <tr>
+                            <td colspan="6">Total a pagar: ${{total}}</td>
+                        </tr>
+                    </tfooter>
                 </table>
+                <div class="text-danger" id="error-text"></div>
+                <button type="button" class="btn btn-primary bg-gradient" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Comprar
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmar compra</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            ¿Está seguro que desea confirmar su compra?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary bg-gradient" data-bs-dismiss="modal">Cancelar</button>
+                            <form id="purchase">
+                                <button type="submit" class="btn btn-primary bg-gradient my-3">Comprar</button>
+                            </form>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
                 <button data-id="{{cart._id}}" id="clearCart" class="btn btn-danger bg-gradient my-3">Limpiar carrito</button>
             </div>
             <script src="./js/cart.js"></script>

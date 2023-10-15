@@ -10,7 +10,10 @@ class MessageManager {
         }
     }
     async getMessages() {
-        return await Message.find().sort({ updatedAt: -1 }).limit(10);
+        return await Message.find().sort({ updatedAt: -1 }).limit(10).populate({
+            path: "user",
+            select: ["_id", "firstname", "lastname"]
+        });
     }
 }
 

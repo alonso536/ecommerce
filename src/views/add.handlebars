@@ -1,0 +1,69 @@
+{{> navbar}}
+<main class="container">
+    <h2 class="my-3">{{title}}</h2>
+            <form class="col-12">
+            <div class="mb-3">
+                <label for="title">Título</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    id="title"
+                    name="title"
+                    value="{{product.title}}"
+                />
+                <small class="text-danger error-text"></small>
+            </div>
+            <div class="mb-3">
+                <label for="description">Descripción</label>
+                <textarea
+                    class="form-control"
+                    id="description"
+                    name="description">{{product.description}}</textarea>
+                <small class="text-danger error-text"></small>
+            </div>
+            <div class="mb-3">
+                <label for="code">Código</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    id="code"
+                    name="code"
+                    value="{{product.code}}"
+                />
+                <small class="text-danger error-text"></small>
+            </div>
+            <div class="mb-3">
+                <label for="price">Precio</label>
+                <input
+                    type="number"
+                    class="form-control"
+                    id="price"
+                    name="price"
+                    value="{{product.price}}"
+                />
+                <small class="text-danger error-text"></small>
+            </div>
+            <div class="mb-3">
+                <label for="stock">Stock</label>
+                <input type="number" class="form-control" id="stock" name="stock" value="{{product.stock}}"/>
+                <small class="text-danger error-text"></small>
+            </div>
+            <div class="mb-3">
+                <label for="category">Categoría</label>
+                <select for="category" name="category" class="form-select">
+                    <option selected disabled>Seleccione una opción</option>
+                    <option value="Laptops">Laptops</option>
+                    <option value="Smartphones">Smartphones</option>
+                    <option value="Tablets">Tablets</option>
+                    <option value="Smartwatches">Smartwatches</option>
+                </select>
+                <small class="text-danger error-text"></small>
+            </div>
+            <input type="hidden" id="idProduct" value="{{product.id}}">
+            <button
+                type="submit"
+                class="btn btn-primary bg-gradient bg-opacity-50 my-3"
+            >{{title}}</button>
+        </form>
+</main>
+<script src="./js/add.js"></script>

@@ -1,1 +1,4 @@
 node_modules/
+src/uploads/*.jpg
+src/uploads/*.jpeg
+src/uploads/*.png

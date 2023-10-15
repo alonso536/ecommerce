@@ -1,0 +1,83 @@
+{{>navbar}}
+<main class="container">
+    <h1 class="my-3">{{title}}</h1>
+    <a href="/products" class="btn btn-primary bg-gradient my-3">Volver</a>
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    {{title}}
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Información del ticket</h5>
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr>
+                                <td>Código</td>
+                                <td>{{ticket.code}}</td>
+                            </tr>
+                            <tr>
+                                <td>Cliente</td>
+                                <td>{{ticket.purchaser.firstname}} {{ticket.purchaser.lastname}}</td>
+                            </tr>
+                            <tr>
+                                <td>Monto</td>
+                                <td>${{ticket.amount}}</td>
+                            </tr>
+                            <tr>
+                                <td>Fecha</td>
+                                <td>{{ticket.purchase_datetime}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <hr>
+                    <h5 class="card-title">Información de los productos</h5>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Título</th>
+                                <th>Descripción</th>
+                                <th>Precio</th>
+                                <th>Categoría</th>
+                                <th>Cantidad</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each ticket.products}}
+                                <tr>
+                                    <td>{{this.product.title}}</td>
+                                    <td>{{this.product.description}}</td>
+                                    <td>{{this.product.price}}</td>
+                                    <td>{{this.product.category}}</td>
+                                    <td>{{this.quantity}}</td>
+                                </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                    <hr>
+                    <h5 class="card-title">Información del cliente</h5>
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr>
+                                <td>Nombre</td>
+                                <td>{{ticket.purchaser.firstname}}</td>
+                            </tr>
+                            <tr>
+                                <td>Apellido</td>
+                                <td>{{ticket.purchaser.lastname}}</td>
+                            </tr>
+                            <tr>
+                                <td>Email</td>
+                                <td>{{ticket.purchaser.email}}</td>
+                            </tr>
+                            <tr>
+                                <td>Edad</td>
+                                <td>{{ticket.purchaser.age}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

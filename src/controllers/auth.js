@@ -1,4 +1,7 @@
+import UserManager from "../dao/db/services/userManager.js";
 import { generateJWT } from "../helpers/generateJwt.js";
+
+const userManager = new UserManager();
 
 export const register = async (req, res) => {
     return res.status(201).json({
@@ -47,7 +50,7 @@ export const githubcallback = async (req, res) => {
 }
 
 export const current = (req, res) => {
-    const user = req.user;
+    const user = userManager.getUser(req.user);
     return res.status(200).json({
         user
     });

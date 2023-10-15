@@ -1,6 +1,6 @@
+{{> navbar}}
 <main class="container">
-    <h1 class="text-center my-3">{{title}}</h1>
-
+    <h2 class="my-3">{{title}}</h2>
     <div class="row">
         <div class="col-md-6 col-12">
             <h4 class="mb-4">Ultimos 10 mensajes</h4>
@@ -19,6 +19,7 @@
                     name="body"
                     placeholder="Escribe un mensaje"
                 />
+                <input type="hidden" id="user" value="{{user.id}}">
                 <button
                     type="submit"
                     class="btn btn-primary bg-gradient"

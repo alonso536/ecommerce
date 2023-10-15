@@ -106,7 +106,7 @@ export const uploadImg = async (req, res) => {
         });
     } catch (error) {
         return res.status(400).json({
-            msg: error.toString(),
+            error: error.toString(),
         });
     }
 }

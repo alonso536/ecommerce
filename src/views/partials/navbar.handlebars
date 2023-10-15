@@ -22,9 +22,18 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/products">Productos</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/cart">Carrito</a>
-                        </li>
+                        {{#if user.isAdmin}}
+                            <li class="nav-item">
+                                <a class="nav-link" href="/add">Agregar</a>
+                            </li>
+                        {{else}}
+                            <li class="nav-item">
+                                <a class="nav-link" href="/cart">Carrito</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/chat">Chat</a>
+                            </li>
+                        {{/if}}
                     </ul>
                 </div>
                 <div>

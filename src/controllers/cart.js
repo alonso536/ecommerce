@@ -3,8 +3,10 @@
 
 // Descomentar para usar base de datos
 import CartManager from "../dao/db/services/cartManager.js";
+import TicketManager from "../dao/db/services/ticketManager.js";
 
 const cartManager = new CartManager();
+const ticketManager = new TicketManager();
 
 export const index = async (req, res) => {
     const carts = await cartManager.getCarts();
@@ -120,6 +122,29 @@ export const destroy = async (req, res) => {
     } catch (error) {
         return res.status(400).json({
             msg: error.toString(),
+        });
+    }
+}
+
+export const purchase = async (req, res) => {
+    const { cid } = req.params;
+    const { id } = req.user;
+
+    try {
+        const cart = await cartManager.getCartById(cid);
+        const amount = cartManager.calculateTotal(cart);
+        const ticket = await ticketManager.addTicket(id, amount, cart.products);
+
+        await cartManager.reduceStock(cart);
+        await cartManager.clearCart(cid);
+
+        return res.status(201).json({
+            ticket
+        });
+
+    } catch(error) {
+        return res.status(400).json({
+            error: error.toString()
         });
     }
 }

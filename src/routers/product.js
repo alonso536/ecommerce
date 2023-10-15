@@ -1,15 +1,23 @@
 import { Router } from "express";
 import { check } from "express-validator";
+import passport from "passport";
+
 import { validateFields } from "../middlewares/validateFields.js";
 import { isCategoryValid } from "../helpers/validations.js";
 import { uploads } from "../middlewares/multer.js";
 import * as controller from "../controllers/product.js";
+import { isAdmin } from "../middlewares/isAdmin.js";
 
 const router = Router();
 
-router.get("/", controller.index);
+router.get("/", [
+    passport.authenticate("jwt", { session: false }),
+    validateFields
+], controller.index);
 
 router.post("/", [
+    passport.authenticate("jwt", { session: false }),
+    isAdmin,
     check("title", "El título es obligatorio").notEmpty(),
     check("description", "La descripción es obligatoria").notEmpty(),
     check("code", "El código es obligatorio").notEmpty(),
@@ -22,9 +30,14 @@ router.post("/", [
     validateFields,
 ], controller.store);
 
-router.get("/:pid", controller.show);
+router.get("/:pid", [
+    passport.authenticate("jwt", { session: false }),
+    validateFields
+], controller.show);
 
 router.put("/:pid", [
+    passport.authenticate("jwt", { session: false }),
+    isAdmin,
     check("title", "El título es obligatorio").notEmpty().optional(),
     check("description", "La descripción es obligatoria").notEmpty().optional(),
     check("code", "El código es obligatorio").notEmpty().optional(),
@@ -37,10 +50,22 @@ router.put("/:pid", [
     validateFields,
 ], controller.update);
 
-router.delete("/:pid", controller.destroy);
+router.delete("/:pid", [
+    passport.authenticate("jwt", { session: false }),
+    isAdmin,
+    validateFields,
+], controller.destroy);
 
-router.post("/img/:pid", uploads.array("file"), controller.uploadImg);
+router.post("/img/:pid", [
+    passport.authenticate("jwt", { session: false }),
+    isAdmin,
+    uploads.array("file"),
+    validateFields,
+], controller.uploadImg);
 
-router.get("/img/:pid", controller.showImg);
+router.get("/img/:pid", [
+    passport.authenticate("jwt", { session: false }),
+    validateFields,
+], controller.showImg);
 
 export default router;

@@ -2,8 +2,8 @@ import { Schema, model } from "mongoose";
 
 const MessageSchema = Schema({
     user: {
-        type: String,
-        required: true
+        type: Schema.Types.ObjectId,
+        ref: "User"
     },
     body: {
         type: String,

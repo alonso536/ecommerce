@@ -6,13 +6,13 @@
         {{#each products.payload}}
             <div class="col-md-4 col-sm-6 col-12">
                 <div class="card my-3">
-                    <div class="card-body">
+                    <img src="http://localhost:8080/api/products/img/{{this._id}}" height="320px" class="card-img-top" alt="{{this.name}}">
+                    <div class="card-body" data-id="{{this._id}}">
                         <h5 class="card-title">{{this.title}}</h5>
                         <p class="card-text">{{this.description}}</p>
                         <p class="card-text">$ {{this.price}}</p>
                         <p class="card-text">{{this.category}}</p>
-                        <button data-id="{{this._id}}" class="btn btn-primary bg-gradient addToCart">Agregar al
-                            carro</button>
+                        <p class="card-text"><small class="text-body-secondary">Stock: {{this.stock}}</small></p>
                     </div>
                 </div>
             </div>
@@ -46,5 +46,6 @@
         </nav>
     </div>
     <input id="cartId" type="hidden" value="{{user.cart}}">
+    <input id="role" type="hidden" value="{{user.role}}">
 </main>
 <script src="./js/products.js"></script>
