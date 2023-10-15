@@ -35,3 +35,8 @@
 ### Rutas para enviar email
 
 -   Enviar email: GET `/api/mail`, se debe agregar el to, el subject y el body dentro del req.body
+
+## Credenciales del admin
+
+-   Email: admin@admin.com
+-   Contraseña: admin

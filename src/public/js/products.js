@@ -127,7 +127,7 @@ forms.forEach(form => {
         .then(response => response.json())
         .then(result => {
             if(result.error) {
-                showError(result.msg, form.dataset.id)
+                showError(result.error, form.dataset.id)
             } else {
                 location.reload();
             }
