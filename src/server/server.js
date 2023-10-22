@@ -12,7 +12,7 @@ import { createServer } from "http";
 import { Server as SocketServer } from "socket.io";
 import { socketController } from "../sockets/controller.js";
 
-import { cartRouter, productRouter, mailRouter, authRouter, ticketRouter, viewRouter } from "../routers/index.js";
+import { cartRouter, productRouter, mailRouter, mockRouter, authRouter, ticketRouter, viewRouter } from "../routers/index.js";
 import { connect } from "../config/database.js";
 import { dirname } from "../path.js";
 
@@ -27,6 +27,7 @@ class Server {
             auth: "/api/sessions",
             carts: "/api/carts",
             mail: "/api/mail",
+            mock: "/api/mock",
             products: "/api/products",
             tickets: "/api/tickets",
             views: "/"
@@ -42,6 +43,7 @@ class Server {
         this.app.use(this.paths.carts, cartRouter);
         this.app.use(this.paths.products, productRouter);
         this.app.use(this.paths.mail, mailRouter);
+        this.app.use(this.paths.mock, mockRouter);
         this.app.use(this.paths.auth, authRouter);
         this.app.use(this.paths.tickets, ticketRouter);
         this.app.use(this.paths.views, viewRouter);

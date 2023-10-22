@@ -1,11 +1,17 @@
-# Ecommerce - Tercera pre entrega terminada
+# Ecommerce - Desafio: Mocking y manejo de errores
 
 ## Alonso Díaz
 
 -   Ejecute `npm install` para inicializar los modulos de node
 -   Ejecute `npm start` para ejecutar la aplicación
 
+## Todos los errores son manejados por express-validator
+
 ## Rutas de la aplicación
+
+### Ruta de mock de productos
+
+-   `localhost:8080/api/mock/mockingproducts`, muestra 100 productos generados con faker.js
 
 ### Rutas de autenticación
 
