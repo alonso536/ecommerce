@@ -1,17 +1,19 @@
-# Ecommerce - Desafio: Mocking y manejo de errores
+# Ecommerce - Desafio: Implementación de logger
 
 ## Alonso Díaz
 
 -   Ejecute `npm install` para inicializar los modulos de node
 -   Ejecute `npm start` para ejecutar la aplicación
+-   Cambie la propiedad del archivo .env `NODE_ENV='prod'` para ejecutar la aplicación en modo producción
+-   Cambie la propiedad del archivo .env `NODE_ENV='dev'` para ejecutar la aplicación en modo desarrollo
 
-## Todos los errores son manejados por express-validator
+### Ruta para probar los logs
 
-## Rutas de la aplicación
+-   `localhost:8080/api/util/loggerTest`, los logs se ven en la consola
 
 ### Ruta de mock de productos
 
--   `localhost:8080/api/mock/mockingproducts`, muestra 100 productos generados con faker.js
+-   `localhost:8080/api/util/mockingproducts`, muestra 100 productos generados con faker.js
 
 ### Rutas de autenticación
 

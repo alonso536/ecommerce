@@ -1,0 +1,6 @@
+error: Probando logger en error en entorno de desarrollo
+fatal: Probando logger en fatal en entorno de desarrollo
+error: Probando logger en error en entorno de producción
+fatal: Probando logger en fatal en entorno de producción
+error: Probando logger en error en entorno de desarrollo
+fatal: Probando logger en fatal en entorno de desarrollo
