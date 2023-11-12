@@ -38,7 +38,8 @@
 
 ### Rutas para crear usuarios premium
 
-- `localhost:8080/api/`
+- Agregar usuario premium: PATCH `localhost:8080/api/users/premium/:id`, debe hacerlo con las credenciales de admin, si el usuario ya es premium lo cambia a usuario normal.
+- Eliminar usuario: DELETE `localhost:8080/api/users/:id`, ruta para borrar el usuario (por si quiere borrarlo luego de probar la recuperación de contraseña)
 
 ### Rutas para subir las imagenes
 
