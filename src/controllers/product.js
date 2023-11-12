@@ -26,7 +26,7 @@ export const store = async (req, res) => {
         });        
     }
 
-    const product = { title, description, code, price, stock, category };
+    const product = { title, description, code, price, stock, category, owner: req.user.id };
     productManager.addProduct(product);
 
     return res.status(201).json({

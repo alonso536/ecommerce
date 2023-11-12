@@ -107,6 +107,14 @@ class ProductManager {
         }
     }
 
+    async deleteProductsByOwner(idOwner) {
+        try {
+            await Product.deleteMany({ owner: idOwner });
+        } catch(error) {
+            throw new Error(`Error al borrar los productos`);
+        }
+    }
+
     async uploadImg(files, id, allowExtentions = ["jpg", "jpeg", "png"]) {
         const product = await Product.findById(id);
         if (!product || !product.status) {

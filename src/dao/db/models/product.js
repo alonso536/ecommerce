@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Schema, SchemaTypes, model } from "mongoose";
 import mongoosePaginate from "mongoose-paginate-v2";
 
 const ProductSchema = Schema(
@@ -31,6 +31,10 @@ const ProductSchema = Schema(
         category: {
             type: String,
             required: true,
+        },
+        owner: {
+            type: SchemaTypes.ObjectId,
+            ref: "User"
         },
         thumbnails: [
             {

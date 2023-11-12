@@ -7,9 +7,14 @@ class UserDto {
         this.role = role;
         this.cart = cart;
         this.isAdmin = false;
+        this.isPremium = false;
 
         if(role == "ROLE_ADMIN") {
             this.isAdmin = true;
+        }
+
+        if(role == "ROLE_PREMIUM") {
+            this.isPremium = true;
         }
     }
 }

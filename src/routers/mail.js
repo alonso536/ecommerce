@@ -7,7 +7,7 @@ import { validateFields } from "../middlewares/validateFields.js";
 
 const router = Router();
 
-router.get("/", [
+router.post("/", [
     check("to", "El destinatario es obligatorio").notEmpty(),
     check("to", "El destinatario debe ser un email").isEmail(),
     check("body", "El mensaje es obligatorio").notEmpty(),

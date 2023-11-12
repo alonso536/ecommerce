@@ -4,6 +4,7 @@ import mailRouter from "./mail.js";
 import utilRouter from "./util.js";
 import authRouter from "./auth.js";
 import ticketRouter from "./ticket.js";
+import userRouter from "./user.js";
 import viewRouter from "./views.js";
 
 export {
@@ -13,5 +14,6 @@ export {
     utilRouter,
     authRouter,
     ticketRouter,
+    userRouter,
     viewRouter
 }

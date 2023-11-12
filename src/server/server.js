@@ -12,7 +12,7 @@ import { createServer } from "http";
 import { Server as SocketServer } from "socket.io";
 import { socketController } from "../sockets/controller.js";
 
-import { cartRouter, productRouter, mailRouter, utilRouter, authRouter, ticketRouter, viewRouter } from "../routers/index.js";
+import { cartRouter, productRouter, mailRouter, utilRouter, authRouter, ticketRouter, userRouter, viewRouter } from "../routers/index.js";
 import { connect } from "../config/database.js";
 import { dirname } from "../path.js";
 import { addLogger } from "../config/logger.js";
@@ -31,6 +31,7 @@ class Server {
             util: "/api/util",
             products: "/api/products",
             tickets: "/api/tickets",
+            users: "/api/users",
             views: "/"
         }
 
@@ -47,6 +48,7 @@ class Server {
         this.app.use(this.paths.util, utilRouter);
         this.app.use(this.paths.auth, authRouter);
         this.app.use(this.paths.tickets, ticketRouter);
+        this.app.use(this.paths.users, userRouter);
         this.app.use(this.paths.views, viewRouter);
     }
 

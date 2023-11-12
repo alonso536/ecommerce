@@ -66,13 +66,13 @@ const showError = (msg, idProduct) => {
 }
 
 const cartId = document.querySelector("#cartId").value;
-const role = document.querySelector("#role").value;
+const owner = document.querySelector("#owner").value;
 
 const cards = [...document.querySelectorAll(".card-body")];
 
-const showOptions = role => {
+const showOptions = owner => {
     cards.forEach(card => {
-        if(role == "ROLE_ADMIN") {
+        if(owner == card.dataset.owner) {
             card.innerHTML += `
                 <a href="edit?id=${card.dataset.id}" class="btn btn-success bg-gradient editProduct">Editar</a>
                 ${getModal(card.dataset.id)}
@@ -86,7 +86,7 @@ const showOptions = role => {
     });
 }
 
-showOptions(role);
+showOptions(owner);
 
 const buttonsAddCart = [...document.querySelectorAll(".addToCart")];
 const buttonsDeleteProduct = [...document.querySelectorAll(".deleteProduct")];

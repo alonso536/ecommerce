@@ -20,6 +20,21 @@ export const login = (req, res) => {
     });
 }
 
+export const forgotPassword = (req, res) => {
+    res.render("forgot-password", {
+        title: "Recuperar contraseña"
+    });
+}
+
+export const passwordRecovery = (req, res) => {
+    const email = req.cookies["passwordRecovery"];
+
+    res.render("password-recovery", {
+        title: "Nueva contraseña",
+        email
+    });
+}
+
 export const chat = (req, res) => {
     const user = userManager.getUser(req.user);
 

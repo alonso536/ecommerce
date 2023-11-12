@@ -21,6 +21,17 @@ router.post("/register", [
 
 router.post("/login", passport.authenticate("login"), controller.login);
 
+router.post("/forgot-password", [
+    check("email", "El email es obligatorio").notEmpty(),
+    check("email", "El email debe estar en un formato correcto").isEmail(),
+    validateFields,
+], controller.forgotPassword);
+
+router.patch("/password-recovery/:email", [
+    check("password", "La contraseña es obligatoria").notEmpty(),
+    validateFields,
+], controller.passwordRecovery);
+
 router.post("/logout", controller.logout);
 
 router.get("/github", passport.authenticate("github", { scope: ["user:email"]}), controller.githubcallback);
