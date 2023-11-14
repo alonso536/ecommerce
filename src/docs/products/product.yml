@@ -1,0 +1,238 @@
+paths:
+  /api/products:
+    get:
+      summary: Obtiene todos los productos por página
+      tags:
+        - Products
+      responses:
+        "200":
+          description: Los productos son obtenidos con exito de la base de datos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#components/schemas/Product"
+        "401":
+          description: Si el usuario no está autenticado, no podrá ver los productos
+        "500":
+          description: Error interno del servidor
+    post:
+      summary: Crea un nuevo producto en la base de datos
+      tags:
+        - Products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#components/requestBodies/createProduct"
+      responses:
+        "201":
+          description: Se crea con exito un nuevo producto
+          content:
+            application/json:
+              schema:
+                $ref: "#components/schemas/Product"
+        "400":
+          description: El request body no puede contener errores
+        "401":
+          description: Si el usuario no está autenticado, no podrá crear productos
+        "403":
+          description: Solo los usuarios administradores y premium pueden crear productos
+        "500":
+          description: Error interno del servidor
+
+  /api/products/{pid}:
+    get:
+      summary: Obtiene un producto en base a su id
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: Id del producto que desea solicitar
+          schema:
+            $type: String
+      responses:
+        "200":
+          description: El producto es obtenido con exito de la base de datos
+          content:
+            application/json:
+              schema:
+                $ref: "#components/schemas/Product"
+        "401":
+          description: Si el usuario no está autenticado, no podrá ver el producto
+        "404":
+          description: En caso de que no exista ningún producto con el id especificado
+        "500":
+          description: Error interno del servidor
+    put:
+      summary: Actualiza un producto en base a su id
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: Id del producto que desea actualizar
+          schema:
+            $type: String
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#components/requestBodies/updateProduct"
+      responses:
+        "200":
+          description: El producto es actualizado con exito de la base de datos
+          content:
+            application/json:
+              schema:
+                $ref: "#components/schemas/Msg"
+        "400":
+          description: El request body no puede contener errores
+        "401":
+          description: Si el usuario no está autenticado, no podrá ver el producto
+        "403":
+          description: Solo los administradores están habilitados para actualizar productos. Los usuarios premium solo pueden actualizar los productos que ellos mismos han creado
+        "404":
+          description: En caso de que no exista ningún producto con el id especificado
+        "500":
+          description: Error interno del servidor
+    delete:
+      summary: Elimina un producto en base a su id (cambia la propiedad status a false)
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: Id del producto que desea eliminar
+          schema:
+            $type: String
+      responses:
+        "200":
+          description: El producto es eliminado con exito de la base de datos
+          content:
+            application/json:
+              schema:
+                $ref: "#components/schemas/Product"
+        "401":
+          description: Si el usuario no está autenticado, no podrá ver el producto
+        "403":
+          description: Solo los administradores están habilitados para eliminar productos. Los usuarios premium solo pueden eliminar los productos que ellos mismos han creado
+        "404":
+          description: En caso de que no exista ningún producto con el id especificado
+        "500":
+          description: Error interno del servidor
+
+components:
+  schemas:
+    Msg:
+      type: object
+      properties:
+        msg:
+          type: String
+          description: Información sobre los ids manipulados
+      example:
+        msg: El id modificado es id
+    Product:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: Id autogenerado de mongo
+        title:
+          type: String
+          description: Nombre del producto
+        description:
+          type: String
+          description: Descripción del producto
+        code:
+          type: String
+          description: Código único del producto
+        price:
+          type: Number
+          description: Precio del producto
+        status:
+          type: Boolean
+          description: Indica si el producto está disponible o no, por defecto es true
+        stock:
+          type: Number
+          description: Existencias disponibles del producto
+        category:
+          type: String
+          description: Categoría del producto
+        owner:
+          type: ObjectId
+          description: Guarda el id del usuario dueño del producto, por defecto tiene el id del admin
+        thumbnails:
+          type: String[]
+          description: Arreglo que contiene las url a las imagenes del producto, por defecto es un arreglo vacío
+      example:
+        _id: ObjectId('65440379ecd02f8aa8b4ceda')
+        title: Example product
+        description: This is an example product
+        code: ABC123
+        price: 1200
+        status: true
+        stock: 40
+        category: Category One
+        owner: ObjectId('6551450ba6a1d018b460f6cd')
+        thumbnails: []
+  requestBodies:
+    createProduct:
+      type: object
+      properties:
+        title:
+          type: String
+          description: Nombre del producto
+        description:
+          type: String
+          description: Descripción del producto
+        code:
+          type: String
+          description: Código único del producto
+        price:
+          type: Number
+          description: Precio del producto
+        stock:
+          type: Number
+          description: Existencias disponibles del producto
+        category:
+          type: String
+          description: Categoría del producto
+      example:
+        title: Example product
+        description: This is an example product
+        code: ABC123
+        price: 1200
+        stock: 40
+        category: Category One
+    updateProduct:
+      type: object
+      properties:
+        title:
+          type: String
+          description: Nombre del producto, es opcional
+        description:
+          type: String
+          description: Descripción del producto, es opcional
+        price:
+          type: Number
+          description: Precio del producto, es opcional
+        stock:
+          type: Number
+          description: Existencias disponibles del producto, es opcional
+        category:
+          type: String
+          description: Categoría del producto, es opcional
+      example:
+        title: Example product
+        description: This is an example product
+        price: 1200
+        stock: 40
+        category: Category One

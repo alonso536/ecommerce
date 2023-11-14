@@ -4,6 +4,7 @@ import handlebars from "express-handlebars";
 import session from "express-session";
 import cookieParser from "cookie-parser";
 import MongoStore from "connect-mongo";
+import swaggerUiExpress from "swagger-ui-express";
 
 import passport from "passport";
 import initializePassport from "../config/passport.js";
@@ -16,6 +17,7 @@ import { cartRouter, productRouter, mailRouter, utilRouter, authRouter, ticketRo
 import { connect } from "../config/database.js";
 import { dirname } from "../path.js";
 import { addLogger } from "../config/logger.js";
+import { specs } from "../config/swagger.js";
 
 class Server {
     constructor() {
@@ -61,6 +63,7 @@ class Server {
         this.app.use(express.json());
         this.app.use(express.static(`${dirname}/public`));
         this.app.use(addLogger);
+        this.app.use("/docs", swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
 
         this.app.engine("handlebars", handlebars.engine());
 
