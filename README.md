@@ -8,6 +8,10 @@
 - Cambie la propiedad del archivo .env `NODE_ENV='dev'` para ejecutar la aplicación en modo desarrollo
 - Si quiere probar el sistema de recuperación de contraseña, asegurese de estar de acceder desde la misma máquina donde está ejecuntando la aplicación, y de usar un correo real.
 
+### Ruta de la documentación
+
+- `localhost:8080/docs`
+
 ### Ruta para probar los logs
 
 - `localhost:8080/api/util/loggerTest`, los logs se ven en la consola
