@@ -50,7 +50,7 @@ export const add = async (req, res) => {
     try {
         await cartManager.addProductToCart(cid, pid);
 
-        return res.status(201).json({
+        return res.status(200).json({
             msg: "Producto agregado al carrito",
         });
     } catch (error) {
@@ -66,7 +66,7 @@ export const remove = async (req, res) => {
     try {
         await cartManager.removeProductToCart(cid, pid);
 
-        return res.status(201).json({
+        return res.status(200).json({
             msg: "Producto eliminado del carrito",
         });
     } catch (error) {
@@ -83,7 +83,7 @@ export const update = async (req, res) => {
     try {
         await cartManager.updateCart(cid, products);
 
-        return res.status(201).json({
+        return res.status(200).json({
             msg: "Carrito actualizado con exito",
         });
     } catch (error) {
@@ -100,7 +100,7 @@ export const edit = async (req, res) => {
     try {
         await cartManager.updateProductToCart(cid, pid, quantity);
 
-        return res.status(201).json({
+        return res.status(200).json({
             msg: "Cantidad del producto actualizada con exito",
         });
     } catch (error) {
@@ -116,7 +116,7 @@ export const destroy = async (req, res) => {
     try {
         await cartManager.clearCart(cid);
 
-        return res.status(201).json({
+        return res.status(200).json({
             msg: "Carrito limpiado con exito",
         });
     } catch (error) {

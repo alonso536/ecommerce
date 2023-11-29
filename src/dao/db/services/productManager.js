@@ -17,11 +17,15 @@ class ProductManager {
 
     async addProduct(product) {
         try {
-            await Product.create(product);
-            return product;
+            const newProduct = await Product.create(product);
+            return newProduct;
         } catch (err) {
             throw new Error("Error al insertar el producto");
         }
+    }
+
+    async getAllProducts() {
+        return await Product.find();
     }
 
     async getProducts(limit, page, sort, query) {

@@ -1,4 +1,4 @@
-# Ecommerce - Desafio: Documentación de Api
+# Ecommerce - Desafío: Módulos de testting agregados
 
 ## Alonso Díaz
 
@@ -7,6 +7,7 @@
 - Cambie la propiedad del archivo .env `NODE_ENV='prod'` para ejecutar la aplicación en modo producción
 - Cambie la propiedad del archivo .env `NODE_ENV='dev'` para ejecutar la aplicación en modo desarrollo
 - Si quiere probar el sistema de recuperación de contraseña, asegurese de estar de acceder desde la misma máquina donde está ejecuntando la aplicación, y de usar un correo real.
+- Ejecute `npm test` para testear la aplicación, asegurese de que esté levantada.
 
 ### Ruta de la documentación
 

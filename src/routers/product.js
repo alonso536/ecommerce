@@ -33,6 +33,7 @@ router.post("/", [
 
 router.get("/:pid", [
     passport.authenticate("jwt", { session: false }),
+    check("pid", "Debe ser un id de mongo").isMongoId(),
     validateFields
 ], controller.show);
 
