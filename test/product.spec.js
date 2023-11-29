@@ -17,8 +17,8 @@ describe("Test de products", () => {
         };
 
         this.updateProduct = {
-            title: "Laptop HP",
-            description: "Laptop HP S23",
+            title: "Samsung Galaxy",
+            description: "Samsung Galaxy S23",
             price: 15000,
             stock: 30
         };

@@ -11,8 +11,6 @@ describe("Test de carts", function() {
         this.idProduct = process.env.PRODUCT_ID_TEST;
         this.idProductBad = process.env.PRODUCT_ID_BAD_TEST;
 
-        console.log({ idCart: this.idCart, idProduct: this.idProduct, idProductBad: this.idProductBad });
-
         this.credentials = {
             email: "john.doe@mail.com",
             password: "1234"
