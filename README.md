@@ -1,4 +1,4 @@
-# Ecommerce - Desafío: Módulos de testting agregados
+# Ecommerce - Desafío: Módulos de testing agregados
 
 ## Alonso Díaz
 
