@@ -31,7 +31,21 @@ const UserSchema = Schema({
     github: {
         type: Boolean,
         default: false
-    }
+    },
+    avatar: {
+        type: String
+    },
+    last_connection: {
+        type: Date
+    },
+    documents: [{
+        name: {
+            type: String
+        },
+        reference: {
+            type: String
+        }
+    }]
 }, 
 {
     timestamps: true

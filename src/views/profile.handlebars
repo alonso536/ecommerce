@@ -1,12 +1,49 @@
 {{> navbar}}
 <main class="container">
     <h1 class="my-3">Bienvenido</h1>
-    <ul class="list-group">
-        <li class="list-group-item">Id: {{user.id}}</li>
-        <li class="list-group-item">Nombre: {{user.name}}</li>
-        <li class="list-group-item">Email: {{user.email}}</li>
-        <li class="list-group-item">Edad: {{user.age}}</li>
-        <li class="list-group-item">Rol: {{user.role}}</li>
-    </ul>
-
+    <div class="row">
+        <div class="col-sm-3 col-12">
+            <img src="http://localhost:8080/api/users/{{user.id}}/profile" alt="imagen del usuario" class="img-thumbnail">
+            <button type="button" class="btn bg-gradient btn-primary btn-sm text-center mt-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                Agregar imagen
+            </button>
+            <input id="idUser" type="hidden" value="{{user.id}}">
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar imagen</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="formProfile" enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <label for="file">Imagen</label>
+                                <input type="file" id="file" class="form-control" name="file" />
+                                <small class="text-danger" id="error-text"></small>
+                            </div>
+                            <button
+                            type="submit"
+                            class="btn btn-primary bg-gradient bg-opacity-50 my-3">Agregar imagen</button>
+                        </form>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        <div class="col-sm-9 col-12">
+            <ul class="list-group">
+                <li class="list-group-item">Nombre: {{user.name}}</li>
+                <li class="list-group-item">Email: {{user.email}}</li>
+                <li class="list-group-item">Edad: {{user.age}}</li>
+                <li class="list-group-item">Rol: {{user.role}}</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col">
+            <a class="btn btn-primary" href="/upload-documents">Subir documentos</a>
+        </div>
+    </div>
 </main>
+<script src="./js/profile.js"></script>

@@ -60,7 +60,7 @@ router.delete("/:pid", [
     validateFields,
 ], controller.destroy);
 
-router.post("/img/:pid", [
+router.post("/:pid/img", [
     passport.authenticate("jwt", { session: false }),
     permitRoles(["ROLE_ADMIN", "ROLE_PREMIUM"]),
     isOwner,
@@ -68,7 +68,7 @@ router.post("/img/:pid", [
     validateFields,
 ], controller.uploadImg);
 
-router.get("/img/:pid", [
+router.get("/:pid/img", [
     passport.authenticate("jwt", { session: false }),
     validateFields,
 ], controller.showImg);

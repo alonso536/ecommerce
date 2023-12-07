@@ -1,4 +1,4 @@
-# Ecommerce - Desafío: Módulos de testing agregados
+# Ecommerce - Desafío complementario: Cuarta practica integradora
 
 ## Alonso Díaz
 
@@ -7,7 +7,6 @@
 - Cambie la propiedad del archivo .env `NODE_ENV='prod'` para ejecutar la aplicación en modo producción
 - Cambie la propiedad del archivo .env `NODE_ENV='dev'` para ejecutar la aplicación en modo desarrollo
 - Si quiere probar el sistema de recuperación de contraseña, asegurese de estar de acceder desde la misma máquina donde está ejecuntando la aplicación, y de usar un correo real.
-- Ejecute `npm test` para testear la aplicación, asegurese de que esté levantada.
 
 ### Ruta de la documentación
 
@@ -43,7 +42,7 @@
 
 ### Rutas para crear usuarios premium
 
-- Agregar usuario premium: PATCH `localhost:8080/api/users/premium/:id`, debe hacerlo con las credenciales de admin, si el usuario ya es premium lo cambia a usuario normal.
+- Agregar usuario premium: PATCH `localhost:8080/api/users/premium/:id`, debe hacerlo con las credenciales de admin, si el usuario ya es premium lo cambia a usuario normal, si el usuario no ha subido los documentos no podrá ser premium.
 - Eliminar usuario: DELETE `localhost:8080/api/users/:id`, ruta para borrar el usuario (por si quiere borrarlo luego de probar la recuperación de contraseña)
 
 ### Rutas para subir las imagenes
@@ -54,6 +53,10 @@
 ### Rutas para enviar email
 
 - Enviar email: POST `/api/mail`, se debe agregar el to, el subject y el body dentro del req.body
+
+### Ruta para subir los documentos
+
+- Subir documentos: POST `localhost:8080/api/users/:id/documents`, se deben subir todos de una vez
 
 ## Credenciales del admin
 

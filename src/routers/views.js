@@ -38,6 +38,11 @@ router.get("/profile", [
     passport.authenticate("jwt", { session: false })
 ], controller.profile);
 
+router.get("/upload-documents", [
+    passport.authenticate("jwt", { session: false }),
+    permitRoles(["ROLE_USER"])
+], controller.uploadDocuments)
+
 router.get("/add", [
     passport.authenticate("jwt", { session: false }),
     permitRoles(["ROLE_ADMIN", "ROLE_PREMIUM"]),

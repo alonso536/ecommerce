@@ -19,6 +19,7 @@ export const login = async (req, res) => {
             });
         }    
         const token = await generateJWT(req.user);
+        await userManager.lastConnection(req.user.id);
     
         return res.cookie("token", token, {
             maxAge: 60 * 60 * 1000,
@@ -99,7 +100,9 @@ export const passwordRecovery = async (req, res) => {
 }
 
 export const logout = async (req, res) => {
-    res.clearCookie("token").send({
+    await userManager.lastConnection(req.user.id);
+
+    return res.clearCookie("token").send({
         status: "success",
         msg: "Logout OK"
     });

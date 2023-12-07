@@ -1,4 +1,11 @@
 node_modules/
-src/uploads/*.jpg
-src/uploads/*.jpeg
-src/uploads/*.png
+
+src/uploads/products/**.jpg
+src/uploads/products/**.jpeg
+src/uploads/products/**.png
+
+src/uploads/profiles/**.jpg
+src/uploads/profiles/**.jpeg
+src/uploads/profiles/**.png
+
+src/uploads/documents/**.pdf

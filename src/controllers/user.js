@@ -55,4 +55,65 @@ export const destroy  = async (req, res) => {
             error: error.toString()
         })
     }
+} 
+
+export const uploadAvatar = async (req, res) => {
+    const file = req.file;
+    const { id } = req.params;
+
+    try {
+        await userManager.uploadAvatar(file, id);
+
+        return res.status(200).json({
+            msg: "Subida de imagenes exitosa",
+        });
+    } catch (error) {
+        return res.status(400).json({
+            error: error.toString(),
+        });
+    }
+}
+
+export const avatar = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        let img = await userManager.showAvatar(id);
+        return res.sendFile(img);
+    } catch (error) {
+        return res.status(404).json({
+            msg: error.toString(),
+        });
+    }
+}
+
+export const documents = async (req, res) => {
+    const files = req.files;
+    const { id } = req.params;
+
+    if(!files.identify || !files.domicile || !files.account_status) {
+        userManager.deleteDocuments(files);
+        return res.status(400).json({
+            error: "Los archivos son obligatorios y solo se permiten archivos pdf"
+        });
+    }
+
+    if(id != req.user.id) {
+        userManager.deleteDocuments(files);
+        return res.status(403).json({
+            error: "Forbidden"
+        });
+    }
+
+    try {
+        await userManager.uploadDocuments(files, id);
+
+        return res.status(200).json({
+            msg: "Archivos subidos con exito"
+        });
+    } catch(error) {
+        return res.status(400).json({
+            error: error.toString()
+        });
+    }
 }

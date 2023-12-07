@@ -6,7 +6,7 @@
         {{#each products.payload}}
             <div class="col-md-4 col-sm-6 col-12">
                 <div class="card my-3">
-                    <img src="http://localhost:8080/api/products/img/{{this._id}}" height="320px" class="card-img-top" alt="{{this.name}}">
+                    <img src="http://localhost:8080/api/products/{{this._id}}/img" height="320px" class="card-img-top" alt="{{this.name}}">
                     <div class="card-body" data-id="{{this._id}}" data-owner="{{this.owner}}">
                         <h5 class="card-title">{{this.title}}</h5>
                         <p class="card-text">{{this.description}}</p>
@@ -47,5 +47,6 @@
     </div>
     <input id="cartId" type="hidden" value="{{user.cart}}">
     <input id="owner" type="hidden" value="{{user.id}}">
+    <input id="role" type="hidden" value="{{user.role}}">
 </main>
 <script src="./js/products.js"></script>

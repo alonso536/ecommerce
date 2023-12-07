@@ -73,6 +73,16 @@ export const profile = async (req, res) => {
     });
 }
 
+export const uploadDocuments = async (req, res) => {
+    const user = userManager.getUser(req.user);
+
+    res.render("upload-documents", {
+        title: "Subir documentos",
+        subtitle: "Para volverse usuario premium debe subir los siguientes documentos",
+        user
+    })
+}
+
 export const addProduct = async (req, res) => {
     const user = userManager.getUser(req.user);
 

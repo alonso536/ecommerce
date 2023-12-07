@@ -1,0 +1,27 @@
+{{> navbar}}
+<main class="container">
+    <h1 class="my-3">{{title}}</h1>
+    <p class="my-3">{{subtitle}}</p>
+    <form id="formDocuments" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="identify">Identificación</label>
+            <input type="file" id="identify" class="form-control" name="identify" />
+            <small class="text-danger error-text"></small>
+        </div>
+        <div class="mb-3">
+            <label for="domicile">Comprobante de domicilio</label>
+            <input type="file" id="domicile" class="form-control" name="domicile" />
+            <small class="text-danger error-text"></small>
+        </div>
+        <div class="mb-3">
+            <label for="account_status">Estado de cuenta</label>
+            <input type="file" id="account_status" class="form-control" name="account_status" />
+            <small class="text-danger error-text"></small>
+        </div>
+        <div class="text-success div-success"></div>
+        <div class="text-danger div-error"></div>
+        <button type="submit" class="btn btn-primary bg-gradient bg-opacity-50 my-3">Subir documentos</button>
+    </form>
+    <input type="hidden" id="idUser" value="{{user.id}}">
+</main>
+<script src="./js/upload-documents.js"></script>

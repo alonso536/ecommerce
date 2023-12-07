@@ -67,12 +67,13 @@ const showError = (msg, idProduct) => {
 
 const cartId = document.querySelector("#cartId").value;
 const owner = document.querySelector("#owner").value;
+const roleUser = document.querySelector("#role").value;
 
 const cards = [...document.querySelectorAll(".card-body")];
 
 const showOptions = owner => {
     cards.forEach(card => {
-        if(owner == card.dataset.owner) {
+        if(owner === card.dataset.owner || roleUser === "ROLE_ADMIN") {
             card.innerHTML += `
                 <a href="edit?id=${card.dataset.id}" class="btn btn-success bg-gradient editProduct">Editar</a>
                 ${getModal(card.dataset.id)}
@@ -120,7 +121,7 @@ forms.forEach(form => {
 
         formData.append("file", file.files[0]);
 
-        fetch(`/api/products/img/${form.dataset.id}`, {
+        fetch(`/api/products/${form.dataset.id}/img`, {
             method: "POST",
             body: formData
         })

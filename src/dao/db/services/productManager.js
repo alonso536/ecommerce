@@ -123,7 +123,7 @@ class ProductManager {
         const product = await Product.findById(id);
         if (!product || !product.status) {
             files.forEach(({ filename }) => {
-                fs.unlinkSync(`${dirname}/uploads/${filename}`);
+                fs.unlinkSync(`${dirname}/uploads/products/${filename}`);
             });
             throw new Error(`No existe un producto con el id ${id}`);
         }
@@ -135,7 +135,7 @@ class ProductManager {
 
             if (!allowExtentions.includes(extention)) {
                 hasUpload = false;
-                fs.unlinkSync(`${dirname}/uploads/${filename}`);
+                fs.unlinkSync(`${dirname}/uploads/products/${filename}`);
             } else {
                 product.thumbnails.push(filename);
             }
@@ -161,7 +161,7 @@ class ProductManager {
         }
 
         const filename = product.thumbnails[0];
-        const pathImg = `${dirname}/uploads/${filename}`;
+        const pathImg = `${dirname}/uploads/products/${filename}`;
         if (!fs.existsSync(pathImg)) {
             product.thumbnails = product.thumbnails.filter(
                 (t) => t !== filename
