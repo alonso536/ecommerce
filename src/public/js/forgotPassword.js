@@ -20,7 +20,6 @@ form.addEventListener("submit", e => {
     })
     .then(response => response.json())
     .then(result => {
-        console.log(result);
         if(result.msg) {
             error.innerText = result.msg;
         } else if(result.errors) {

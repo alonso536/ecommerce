@@ -86,6 +86,6 @@ const deleteUser = (idUser) => {
         location.reload();
     })
     .catch(err => {
-        console.log(err);
+        //console.log(err);
     });
 }

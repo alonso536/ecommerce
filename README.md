@@ -23,6 +23,7 @@
 
 - `/add`, muestra un formulario para agregar productos
 - `/edit?id=:pid`, muestra un formulario para editar los productos, viene con los datos seteados
+- `/users`, página para administrar a los usuarios
 
 ### Rutas del usuario
 

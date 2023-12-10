@@ -43,7 +43,7 @@ const updateProduct = (cartId, productId) => {
         }
     })
     .catch(err => {
-        console.log(err);
+        //console.log(err);
     });
 }
 
@@ -59,7 +59,7 @@ const deleteProduct = (cartId, productId) => {
         window.location.reload();
     })
     .catch(err => {
-        console.log(err);
+        //console.log(err);
     });
 }
 
@@ -75,7 +75,7 @@ const clearCart = (cartId) => {
         window.location.reload();
     })
     .catch(err => {
-        console.log(err);
+        //console.log(err);
     });
 }
 
@@ -93,6 +93,6 @@ formPurchase.addEventListener('submit', e => {
         window.location = `/ticket?tid=${result.ticket.id}`
     })
     .catch(err => {
-        console.log(err);
+        //console.log(err);
     });
 });

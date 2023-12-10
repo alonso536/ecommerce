@@ -47,6 +47,6 @@ deleteUsersButton.addEventListener("click", () => {
         location.reload();
     })
     .catch(err => {
-        console.log(err);
+        //sconsole.log(err);
     });
 });

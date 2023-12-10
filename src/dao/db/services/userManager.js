@@ -229,7 +229,7 @@ class UserManager {
         const currentDate = new Date();
         const twoDaysAgoDate = new Date();
 
-        twoDaysAgoDate.setMinutes(currentDate.getDate() - 2);
+        twoDaysAgoDate.setDate(currentDate.getDate() - 2);
 
         try {
             const users = await User.find({ last_connection: { $lt: twoDaysAgoDate }, role: { $ne: "ROLE_ADMIN" } });

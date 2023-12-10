@@ -152,7 +152,7 @@ const addToCart = (productId) => {
         window.location = "/cart"
     })
     .catch(err => {
-        console.log(err);
+        //console.log(err);
     });
 }
 
@@ -169,6 +169,6 @@ const deleteProduct = (productId) => {
         location.reload();
     })
     .catch(err => {
-        console.log(err);
+        //console.log(err);
     });
 }
