@@ -8,6 +8,8 @@ const cartManager = new CartManager();
 const ticketManager = new TicketManager();
 const userManager = new UserManager();
 
+const endpoint = process.env.ENDPOINT;
+
 export const register = (req, res) => {
     res.render("register", {
         title: "Registro de usuarios"
@@ -53,13 +55,15 @@ export const products = async (req, res) => {
     if (page > products.totalPages) {
         res.render("error", {
             title: "No existen productos en esta página",
-            user
+            user,
+            endpoint
         });
     } else {
         res.render("products", {
             title: "Lista de productos",
             products,
-            user
+            user,
+            endpoint
         });
     }
 }
@@ -70,6 +74,7 @@ export const profile = async (req, res) => {
     res.render("profile", {
         title: "Perfil",
         user,
+        endpoint
     });
 }
 
