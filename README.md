@@ -11,13 +11,13 @@
 
 ### Rutas de autenticación
 
-- `/login`, pide las credenciales al usuario, si hay una sesión activa redirige a `/profile`
-- `/register`, muestra un formulario para registrar usuarios en la base de datos, si hay una sesión activa redirige a `/profile`
+- `/login`, pide las credenciales al usuario
+- `/register`, muestra un formulario para registrar usuarios en la base de datos
 
 ### Rutas globales
 
-- `/products`, muestra los productos con paginación, si no hay una sesión activa redirige a `/login`
-- `/profile`, muestra los datos del usuario, excepto la contraseña, si no hay una sesión activa redirige a `/login`
+- `/products`, muestra los productos con paginación
+- `/profile`, muestra los datos del usuario, excepto la contraseña
 
 ### Rutas del administrador
 

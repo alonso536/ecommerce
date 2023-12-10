@@ -1,11 +1,6 @@
 export const noAuth = async (req, res, next) => {
     if(req.cookies["token"]) {
-        const user = req.user;
-
-        return res.render("profile", {
-            title: "Perfil",
-            user
-        });
+        return res.status(403).send("Fobidden");
     }
 
     next();
