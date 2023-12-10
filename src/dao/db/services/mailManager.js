@@ -17,7 +17,7 @@ class MailManager {
 
             return result;
         } catch(error) {
-            throw new Error(`No se pudo enviar el correo`);
+            throw new Error(error.toString());
         }
 
     }

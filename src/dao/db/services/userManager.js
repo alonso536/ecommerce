@@ -1,12 +1,28 @@
 import { dirname } from "../../../path.js";
 import UserDto from "../dto/user.js";
+import Cart from "../models/cart.js";
+import Message from "../models/message.js";
 import Product from "../models/product.js";
+import Ticket from "../models/ticket.js";
 import User from "../models/user.js";
 import bcryptjs from "bcryptjs";
 
 import fs from "fs";
+import MailManager from "./mailManager.js";
 
 class UserManager {
+
+    mailManager;
+
+    constructor() {
+        this.mailManager = new MailManager();
+    }
+
+    async findAll() {
+        const users = await User.find({ role: { $ne: "ROLE_ADMIN" } });
+        return users.map(({ _id, firstname, lastname, email, age, role, cart }) => new UserDto(_id, `${firstname} ${lastname}`, email, age, role, cart));
+    }
+
     getUser(user) {
         const { id, name, email, age, role, cart } = user;
         return new UserDto(id, name, email, age, role, cart);
@@ -55,11 +71,41 @@ class UserManager {
         }
     }
 
+    async updateUser(id, user) {
+        try {
+            return await User.findByIdAndUpdate(id, user, { new: true });
+        } catch(error) {
+            throw new Error(`No se pudo encontrar el usuario`);
+        }
+    }
+
     async deleteUser(id) {
         try {
-            await User.findByIdAndDelete(id, { new: true });
+            const { _id, email, role, cart, avatar, documents } = await User.findByIdAndDelete(id, { new: true });
+            
+            if(role == "ROLE_PREMIUM") {
+                await Product.updateMany({ owner: _id }, { status: false });
+            }
+
+            if(avatar && avatar != "") {
+                fs.unlinkSync(`${dirname}/uploads/profiles/${avatar}`);
+            }
+
+            if(documents && documents.length > 0) {
+                documents.forEach(({ reference }) => {
+                    fs.unlinkSync(`${dirname}/uploads/documents/${reference}`);
+                });
+            }
+
+            await Cart.findByIdAndDelete(cart);
+            await Ticket.deleteMany({ purchaser: _id });
+            await Message.deleteMany({ user: _id });
+
+            const body = "Su cuenta ha sido eliminada por inactividad";
+            await this.mailManager.sendMail({ to: email, subject: "Cuenta eliminada", body });
+
         } catch(error) {
-            throw new Error(`No se pudo encontrar e usuario`);
+            throw new Error(`No se pudo encontrar el usuario`);
         }
     }
 
@@ -177,6 +223,24 @@ class UserManager {
         }
 
         return pathImg;
+    }
+
+    async deleteAll() {
+        const currentDate = new Date();
+        const twoDaysAgoDate = new Date();
+
+        twoDaysAgoDate.setMinutes(currentDate.getDate() - 2);
+
+        try {
+            const users = await User.find({ last_connection: { $lt: twoDaysAgoDate }, role: { $ne: "ROLE_ADMIN" } });
+            
+            users.forEach(async ({ _id }) => {
+                await this.deleteUser(_id);
+            });
+
+        } catch(error) {
+            throw new Error(error.toString());
+        }
     }
 }
 

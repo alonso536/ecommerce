@@ -80,7 +80,7 @@ const initializePassport = () => {
     passport.use("github", new GitHubStrategy({
         clientID: process.env.GITHUB_CLIENT_ID,
         clientSecret: process.env.GITHUB_SECRET_KEY,
-        callbackURL: "http://localhost:8080/api/sessions/githubcallback"
+        callbackURL: `${process.env.ENDPOINT}/api/sessions/githubcallback`
     }, async (accessToken, refreshToken, profile, done) => {
         try {
             const user = await User.findOne({ email: profile._json.email });

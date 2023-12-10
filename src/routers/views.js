@@ -58,6 +58,15 @@ router.get("/cart", [
     permitRoles(["ROLE_USER", "ROLE_PREMIUM"]),
 ], controller.cart);
 
+router.get("/users", [
+    passport.authenticate("jwt", { session: false }),
+    permitRoles(["ROLE_ADMIN"]),
+], controller.users);
+
+router.get("/edit-profile", [
+    passport.authenticate("jwt", { session: false })
+], controller.editProfile);
+
 router.get("/ticket", [
     passport.authenticate("jwt", { session: false }),
     permitRoles(["ROLE_USER", "ROLE_PREMIUM"]),

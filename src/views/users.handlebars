@@ -1,0 +1,40 @@
+{{> navbar}}
+<main class="container">
+    <h1 class="my-3">Listado de usuarios</h1>
+    <div id="error-text" class="text-danger my-3"></div>
+    <div class="row">
+        <div class="col">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Edad</th>
+                        <th>Role</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each users}}
+                    <tr>
+                        <td>{{this.name}}</td>
+                        <td>{{this.email}}</td>
+                        <td>{{this.age}}</td>
+                        <td>{{this.role}}</td>
+                        <td class="d-flex justify-content-evenly actions" data-id="{{this.id}}">
+                            {{#if this.isPremium}}
+                                <button class="btn btn-success bg-gradient btn-sm add-premium" data-id="{{this.id}}">Hacer usuario</button>
+                            {{/if}}
+
+                            {{#if this.isUser}}
+                                <button class="btn btn-success bg-gradient btn-sm add-premium" data-id="{{this.id}}">Hacer premium</button>
+                            {{/if}}
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+<script src="./js/users.js"></script>

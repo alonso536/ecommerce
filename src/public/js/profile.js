@@ -1,6 +1,7 @@
 const idUser = document.querySelector("#idUser");
 const errorText = document.querySelector("#error-text");
 const form = document.querySelector("#formProfile");
+const deleteUsersButton = document.querySelector("#deleteUsersButton");
 
 form.addEventListener("submit", e => {
     e.preventDefault();
@@ -32,4 +33,20 @@ form.addEventListener("submit", e => {
     .catch(err => {
         errorText.innerText = err;
     });        
+});
+
+deleteUsersButton.addEventListener("click", () => {
+    fetch(`/api/users`, {
+        method: "DELETE",
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(response => response.json())
+    .then(result => {
+        location.reload();
+    })
+    .catch(err => {
+        console.log(err);
+    });
 });

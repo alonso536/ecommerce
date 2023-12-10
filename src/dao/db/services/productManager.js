@@ -2,9 +2,16 @@ import Product from "../models/product.js";
 import fs from "fs";
 import { dirname } from "../../../path.js";
 import ProductDto from "../dto/product.js";
+import MailManager from "./mailManager.js";
+import User from "../models/user.js";
 
 class ProductManager {
-    static endpoint = "http://localhost:8080/products";
+    static endpoint = `${process.env.ENDPOINT}/products`;
+    mailManager;
+
+    constructor() {
+        this.mailManager = new MailManager();
+    }
 
     async isSameCode(code) {
         let isSameCode = false;
@@ -100,22 +107,26 @@ class ProductManager {
 
             if (product.thumbnails.length > 0) {
                 product.thumbnails.forEach((filename) => {
-                    fs.unlinkSync(`${dirname}/uploads/${filename}`);
+                    fs.unlinkSync(`${dirname}/uploads/products/${filename}`);
                 });
+            }
+
+            if(product.owner != process.env.ID_ADMIN) {
+                const { email } = await User.findById(product.owner).select("email");
+
+                const body = `
+                    <p>El administrador ha borrado uno de sus productos</p>
+                    <p>Nombre del producto: ${product.title}</p>
+                    <p>Código: ${product.code}</p>
+                `;
+
+                await this.mailManager.sendMail({ to: email, subject: "Producto eliminado", body });
             }
 
             await Product.updateOne(product, { status: false, thumbnails: [] });
             return id;
         } catch (err) {
-            throw new Error(`Error al borrar el producto`);
-        }
-    }
-
-    async deleteProductsByOwner(idOwner) {
-        try {
-            await Product.deleteMany({ owner: idOwner });
-        } catch(error) {
-            throw new Error(`Error al borrar los productos`);
+            throw new Error(err.toString());
         }
     }
 

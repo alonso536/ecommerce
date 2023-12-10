@@ -41,8 +41,34 @@
         </div>
     </div>
     <div class="row mt-4">
-        <div class="col">
-            <a class="btn btn-primary" href="/upload-documents">Subir documentos</a>
+        <div class="col d-flex justify-content-evenly">
+            {{#if user.isAdmin}}
+                <a class="btn btn-primary" href="/users">Administrar usuarios</a>
+                <button type="button" class="btn bg-gradient btn-danger" data-bs-toggle="modal" data-bs-target="#deleteUsers">
+                Eliminar usuarios inactivos
+            </button>
+            <div class="modal fade" id="deleteUsers" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteUsersLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="deleteUsersLabel">Eliminar usuarios inactivos</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Está seguro que desea eliminar a los usuarios inactivos? Esta acción es destructiva y no se puede deshacer.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" id="deleteUsersButton" class="btn btn-danger">Eliminar</button>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            {{/if}}
+            {{#if user.isUser}}
+                <a class="btn btn-primary" href="/upload-documents">Hacerme premium</a>
+            {{/if}}
+            <a class="btn btn-success" href="/edit-profile">Editar perfil</a>
         </div>
     </div>
 </main>

@@ -9,14 +9,20 @@ import { uploads } from "../middlewares/multer.js";
 
 const router = Router();
 
+router.get("/", [
+    passport.authenticate("jwt", { session: false }),
+    permitRoles(["ROLE_ADMIN"]),
+    validateFields
+], controller.index);
+
 router.put("/:id", [
-    passport.authenticate("jwt", { session: false })
-    // check("id", "Debe ser un id válido").isMongoId(),
-    // check("firstname", "El nombre es obligatorio").notEmpty(),
-    // check("lastname", "El apellido es obligatorio").notEmpty(),
-    // check("age", "La edad es obligatoria").notEmpty(),
-    // check("age", "La edad debe ser un número").isNumeric(),
-    // validateFields,
+    passport.authenticate("jwt", { session: false }),
+    check("id", "Debe ser un id válido").isMongoId(),
+    check("firstname", "El nombre es obligatorio").notEmpty(),
+    check("lastname", "El apellido es obligatorio").notEmpty(),
+    check("age", "La edad es obligatoria").notEmpty(),
+    check("age", "La edad debe ser un número").isNumeric(),
+    validateFields,
 ], controller.update);
 
 router.patch("/premium/:id", [
@@ -32,6 +38,12 @@ router.delete("/:id", [
     check("id", "Debe ser un id válido").isMongoId(),
     validateFields,
 ], controller.destroy);
+
+router.delete("/", [
+    passport.authenticate("jwt", { session: false }),
+    permitRoles(["ROLE_ADMIN"]),
+    validateFields
+], controller.deleteAll);
 
 router.post("/:id/profile", [
     passport.authenticate("jwt", { session: false }),

@@ -130,6 +130,40 @@ export const cart = async (req, res) => {
     }
 }
 
+export const users = async (req, res) => {
+    try {
+        const users = await userManager.findAll();
+        const user = userManager.getUser(req.user);
+
+        return res.render("users", {
+            users,
+            user
+        });
+    } catch(error) {
+        res.render("error", {
+            title: error.toString(),
+        });
+    }
+}
+
+export const editProfile = async (req, res) =>  {
+    try {
+        const { firstname, lastname } = await userManager.findById(req.user.id);
+        const user = userManager.getUser(req.user);
+
+        return res.render("edit-profile", {
+            user,
+            firstname,
+            lastname,
+            title: "Editar perfil"
+        });
+    } catch(error) {
+        res.render("error", {
+            title: error.toString(),
+        });
+    }
+}
+
 export const ticket = async (req, res) => {
     const { tid } = req.query;
 

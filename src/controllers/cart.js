@@ -3,9 +3,11 @@
 
 // Descomentar para usar base de datos
 import CartManager from "../dao/db/services/cartManager.js";
+import MailManager from "../dao/db/services/mailManager.js";
 import TicketManager from "../dao/db/services/ticketManager.js";
 
 const cartManager = new CartManager();
+const mailManager = new MailManager();
 const ticketManager = new TicketManager();
 
 export const index = async (req, res) => {
@@ -128,7 +130,7 @@ export const destroy = async (req, res) => {
 
 export const purchase = async (req, res) => {
     const { cid } = req.params;
-    const { id } = req.user;
+    const { id, email } = req.user;
 
     try {
         const cart = await cartManager.getCartById(cid);
@@ -136,6 +138,25 @@ export const purchase = async (req, res) => {
         const ticket = await ticketManager.addTicket(id, amount, cart.products);
 
         await cartManager.reduceStock(cart);
+        
+        const body = `
+            <p>Su compra ha sido realizada con exito</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Precio</th>
+                        <th>Cantidad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${cartManager.printProducts(cart.products)}
+                </tbody>
+            </table>
+            <p>Total: $${amount}</p>
+        `;
+
+        await mailManager.sendMail({ to: email, subject: "Compra realizada con exito", body });
         await cartManager.clearCart(cid);
 
         return res.status(201).json({

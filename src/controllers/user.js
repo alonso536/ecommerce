@@ -4,12 +4,38 @@ import ProductManager from "../dao/db/services/productManager.js";
 const userManager = new UserManager();
 const productManager = new ProductManager();
 
-export const update = async (req, res) => {
-    // TODO: Habilitar la ruta para actualizar los datos del usuario
+export const index = async (req, res) => {
+    try {
+        const users = await userManager.findAll();
 
-    return res.status(200).json({
-        msg: "ok"
-    })
+        return res.status(200).json({
+            users
+        });
+    } catch(error) {
+        return res.status(500).json({
+            msg: "Ha ocurrido un error. Hable con el administrador",
+            error: error.toString()
+        });
+    }
+}
+
+export const update = async (req, res) => {
+    const { id } = req.params;
+    const { firstname, lastname, age } = req.body;
+
+    try {
+        const user = { firstname, lastname, age };
+        const userUpdated = await userManager.updateUser(id, user);
+        req.user = userUpdated;
+
+        return res.status(200).json({
+            msg: `El id actualizado es ${id}`
+        });
+    } catch(error) {
+        return res.status(400).json({
+            error: error.toString()
+        });
+    }
 }
 
 export const premium = async (req, res) => {
@@ -30,7 +56,7 @@ export const premium = async (req, res) => {
 }
 
 export const destroy  = async (req, res) => {
-    const { id } = req.params(id);
+    const { id } = req.params;
 
     try {
         const user = await userManager.findById(id);
@@ -41,10 +67,6 @@ export const destroy  = async (req, res) => {
             });
         }
 
-        if(user.role == "ROLE_PREMIUM") {
-            await productManager.deleteProductsByOwner(id);
-        }
-
         await userManager.deleteUser(id);
 
         return res.status(200).json({
@@ -53,9 +75,23 @@ export const destroy  = async (req, res) => {
     } catch(error) {
         return res.status(400).json({
             error: error.toString()
-        })
+        });
     }
-} 
+}
+
+export const deleteAll = async (req, res) => {
+    try {
+        await userManager.deleteAll();
+
+        return res.status(200).json({
+            msg: "Usuarios eliminados exitosamente"
+        });
+    } catch(error) {
+        return res.status(400).json({
+            error: error.toString()
+        });
+    }
+}
 
 export const uploadAvatar = async (req, res) => {
     const file = req.file;

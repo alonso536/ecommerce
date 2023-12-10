@@ -12,7 +12,7 @@ export const isOwner = async (req, res, next) => {
         });
     }
     
-    if(product.owner != id) {
+    if(process.env.ID_ADMIN != id && product.owner != id) {
         return res.status(403).json({
             msg: "Forbidden"
         });

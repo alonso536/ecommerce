@@ -1,0 +1,42 @@
+{{> navbar}}
+<main class="container">
+    <h2 class="my-3">{{title}}</h2>
+            <form class="col-12">
+            <div class="mb-3">
+                <label for="firstname">Nombre</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    id="firstname"
+                    name="firstname"
+                    value="{{firstname}}"
+                />
+                <small class="text-danger error-text"></small>
+            </div>
+            <div class="mb-3">
+                <label for="lastname">Apellido</label>
+                <input
+                    class="form-control"
+                    id="lastname"
+                    name="lastname" value="{{lastname}}">
+                <small class="text-danger error-text"></small>
+            </div>
+            <div class="mb-3">
+                <label for="age">Edad</label>
+                <input
+                    type="number"
+                    class="form-control"
+                    id="age"
+                    name="age"
+                    value="{{user.age}}"
+                />
+                <small class="text-danger error-text"></small>
+            </div>
+            <input type="hidden" id="idUser" value="{{user.id}}">
+            <button
+                type="submit"
+                class="btn btn-primary bg-gradient bg-opacity-50 my-3"
+            >Editar</button>
+        </form>
+</main>
+<script src="./js/edit-profile.js"></script>

@@ -154,6 +154,10 @@ class CartManager {
             const product = await Product.findById(p.product._id);
             product.stock -= p.quantity;
 
+            if(product.stock === 0) {
+                product.status = false;
+            }
+
             await product.save();
         });
     }
@@ -165,6 +169,22 @@ class CartManager {
         });
         
         return total;
+    }
+
+    printProducts(products) {
+        let result = "";
+
+        products.forEach(({ product, quantity }) => {
+            result += `
+                <tr>
+                    <td>${product.title}</td>
+                    <td>${product.price}</td>
+                    <td>${quantity}</td>
+                </tr>
+            `;
+        });
+
+        return result;
     }
 }
 
