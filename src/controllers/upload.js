@@ -9,8 +9,8 @@ export const store = async (req, res) => {
     const { file } = req.files;
     let model;
 
-    if(collection == "products") {
-        return res.status.send("Forbidden");
+    if(collection == "products" && req.user.role != "ROLE_ADMIN") {
+        return res.status(403).send("Forbidden");
     }
 
     try {
