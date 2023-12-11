@@ -18,7 +18,7 @@ form.addEventListener("submit", e => {
 
     formData.append("file", file.files[0]);
 
-    fetch(`/api/users/${idUser.value}/profile`, {
+    fetch(`/api/uploads/users/${idUser.value}`, {
         method: "POST",
         body: formData
     })

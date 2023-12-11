@@ -117,6 +117,7 @@ export const showImg = async (req, res) => {
     try {
         let img = await productManager.showImg(pid);
         return res.sendFile(img);
+        
     } catch (error) {
         return res.status(404).json({
             msg: error.toString(),

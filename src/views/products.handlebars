@@ -6,7 +6,11 @@
         {{#each products.payload}}
             <div class="col-md-4 col-sm-6 col-12">
                 <div class="card my-3">
-                    <img src="{{endpoint}}/api/products/{{this._id}}/img" height="320px" class="card-img-top" alt="{{this.name}}">
+                    {{#if this.isThumbnail}}
+                        <img src="{{thumbnail}}" height="320px" class="card-img-top" alt="{{this.name}}">
+                    {{else}}
+                        <img src="{{endpoint}}/api/products/{{this._id}}/img" height="320px" class="card-img-top" alt="{{this.name}}">
+                    {{/if}}
                     <div class="card-body" data-id="{{this._id}}" data-owner="{{this.owner}}">
                         <h5 class="card-title">{{this.title}}</h5>
                         <p class="card-text">{{this.description}}</p>

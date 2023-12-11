@@ -11,3 +11,12 @@ export const isCategoryValid = async (category) => {
 
     return true;
 };
+
+export const allowCollections = (collection, collections) => {
+    const include = collections.includes(collection);
+    if(!include) {
+        throw new Error(`La colección no es válida`);
+    }
+
+    return true;
+}

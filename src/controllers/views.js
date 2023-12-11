@@ -2,6 +2,7 @@ import ProductManager from "../dao/db/services/productManager.js";
 import CartManager from "../dao/db/services/cartManager.js";
 import UserManager from "../dao/db/services/userManager.js";
 import TicketManager from "../dao/db/services/ticketManager.js";
+import User from "../dao/db/models/user.js";
 
 const productManager = new ProductManager();
 const cartManager = new CartManager();
@@ -70,11 +71,17 @@ export const products = async (req, res) => {
 
 export const profile = async (req, res) => {
     const user = userManager.getUser(req.user);
+    const userAvatar = await User.findById(req.user.id);
+    let avatar = userAvatar.avatar;
+
+    if(!userAvatar.avatar || userAvatar.avatar == "") {
+        avatar = "/assets/no-image.png";
+    }
 
     res.render("profile", {
         title: "Perfil",
         user,
-        endpoint
+        avatar
     });
 }
 

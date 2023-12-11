@@ -68,6 +68,21 @@ class ProductManager {
             ? `${ProductManager.endpoint}?page=${products.nextPage}`
             : null;
 
+        products.payload = products.payload.map(({ thumbnails, ...p }) => {
+            if(thumbnails.length === 0) {
+                return {
+                    ...p,
+                    thumbnails,
+                    isThumbnail: false
+                }
+            }
+            return {
+                ...p,
+                thumbnail: thumbnails[0],
+                isThumbnail: true
+            }
+        });
+
         return products;
     }
 
@@ -162,26 +177,27 @@ class ProductManager {
     }
 
     async showImg(id) {
-        const product = await Product.findById(id);
-        if (!product || !product.status) {
-            throw new Error(`No existe un producto con el id ${id}`);
-        }
+        return `${dirname}/public/assets/no-image.jpg`;
+        // const product = await Product.findById(id);
+        // if (!product || !product.status) {
+        //     throw new Error(`No existe un producto con el id ${id}`);
+        // }
 
-        if (product.thumbnails.length === 0) {
-            return `${dirname}/public/assets/no-image.jpg`;
-        }
+        // if (product.thumbnails.length === 0) {
+        //     return `${dirname}/public/assets/no-image.jpg`;
+        // }
 
-        const filename = product.thumbnails[0];
-        const pathImg = `${dirname}/uploads/products/${filename}`;
-        if (!fs.existsSync(pathImg)) {
-            product.thumbnails = product.thumbnails.filter(
-                (t) => t !== filename
-            );
-            await product.save();
-            return `${dirname}/public/assets/no-image.jpg`;
-        }
+        // const filename = product.thumbnails[0];
+        // const pathImg = `${dirname}/uploads/products/${filename}`;
+        // if (!fs.existsSync(pathImg)) {
+        //     product.thumbnails = product.thumbnails.filter(
+        //         (t) => t !== filename
+        //     );
+        //     await product.save();
+        //     return `${dirname}/public/assets/no-image.jpg`;
+        // }
 
-        return pathImg;
+        // return pathImg;
     }
 }
 

@@ -1,4 +1,6 @@
 import express from "express";
+import fileUpload from "express-fileupload";
+
 import cors from "cors";
 import handlebars from "express-handlebars";
 import session from "express-session";
@@ -13,7 +15,7 @@ import { createServer } from "http";
 import { Server as SocketServer } from "socket.io";
 import { socketController } from "../sockets/controller.js";
 
-import { cartRouter, productRouter, mailRouter, utilRouter, authRouter, ticketRouter, userRouter, viewRouter } from "../routers/index.js";
+import { cartRouter, productRouter, mailRouter, utilRouter, authRouter, ticketRouter, uploadRouter, userRouter, viewRouter } from "../routers/index.js";
 import { connect } from "../config/database.js";
 import { dirname } from "../path.js";
 import { addLogger } from "../config/logger.js";
@@ -33,6 +35,7 @@ class Server {
             util: "/api/util",
             products: "/api/products",
             tickets: "/api/tickets",
+            uploads: "/api/uploads",
             users: "/api/users",
             views: "/"
         }
@@ -50,6 +53,7 @@ class Server {
         this.app.use(this.paths.util, utilRouter);
         this.app.use(this.paths.auth, authRouter);
         this.app.use(this.paths.tickets, ticketRouter);
+        this.app.use(this.paths.uploads, uploadRouter);
         this.app.use(this.paths.users, userRouter);
         this.app.use(this.paths.views, viewRouter);
     }
@@ -62,6 +66,12 @@ class Server {
         this.app.use(cors());
         this.app.use(express.json());
         this.app.use(express.static(`${dirname}/public`));
+
+        this.app.use(fileUpload({
+            useTempFiles: true,
+            tempFileDir: "/tmp"
+        }));
+
         this.app.use(addLogger);
         this.app.use("/docs", swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
 

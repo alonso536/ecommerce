@@ -205,24 +205,25 @@ class UserManager {
     }
 
     async showAvatar(id) {
-        const user = await User.findById(id);
-        if (!user) {
-            throw new Error(`No existe un usuario con el id ${id}`);
-        }
+        return `${dirname}/public/assets/no-image.png`;
+        // const user = await User.findById(id);
+        // if (!user) {
+        //     throw new Error(`No existe un usuario con el id ${id}`);
+        // }
 
-        if (!user.avatar || user.avatar === "") {
-            return `${dirname}/public/assets/no-image.png`;
-        }
+        // if (!user.avatar || user.avatar === "") {
+        //     return `${dirname}/public/assets/no-image.png`;
+        // }
 
-        const filename = user.avatar;
-        const pathImg = `${dirname}/uploads/profiles/${filename}`;
-        if (!fs.existsSync(pathImg)) {
-            user.avatar = "";
-            await user.save();
-            return `${dirname}/public/assets/no-image.png`;
-        }
+        // const filename = user.avatar;
+        // const pathImg = `${dirname}/uploads/profiles/${filename}`;
+        // if (!fs.existsSync(pathImg)) {
+        //     user.avatar = "";
+        //     await user.save();
+        //     return `${dirname}/public/assets/no-image.png`;
+        // }
 
-        return pathImg;
+        // return pathImg;
     }
 
     async deleteAll() {

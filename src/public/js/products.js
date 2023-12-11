@@ -121,7 +121,7 @@ forms.forEach(form => {
 
         formData.append("file", file.files[0]);
 
-        fetch(`/api/products/${form.dataset.id}/img`, {
+        fetch(`/api/uploads/products/${form.dataset.id}`, {
             method: "POST",
             body: formData
         })

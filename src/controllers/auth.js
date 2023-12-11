@@ -55,7 +55,7 @@ export const forgotPassword = async (req, res) => {
     const body = { 
         to: email, 
         subject: "Recuperación de contraseña", 
-        body: `<a href="http://localhost:8080/password-recovery" target="_blank">Recuperar contraseña</a>`
+        body: `${process.env.ENDPOINT}/password-recovery" target="_blank">Recuperar contraseña</a>`
     };
 
     const result = await mailManager.sendMail(body);
